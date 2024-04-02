@@ -1,4 +1,4 @@
-// Generated from /home/kkobari/semester_6/PJP/project/src/main/antlr/project/Code.g4 by ANTLR 4.13.1
+// Generated from /home/kkobari/OneDrive/School/semester_6/PJP/project/src/main/antlr/project/Code.g4 by ANTLR 4.13.1
 package org.codeComposer.gen;
 import org.antlr.v4.runtime.tree.ParseTreeVisitor;
 
@@ -72,6 +72,13 @@ public interface CodeVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitLoopStat(CodeParser.LoopStatContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code doWhileStat}
+	 * labeled alternative in {@link CodeParser#statement}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitDoWhileStat(CodeParser.DoWhileStatContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link CodeParser#type}.
 	 * @param ctx the parse tree

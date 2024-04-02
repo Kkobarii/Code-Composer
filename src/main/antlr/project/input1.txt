@@ -55,3 +55,9 @@ c = "";
 e = true;
 read a,b,c,e;
 write "a,b,c,e: ", a, ",", b, ",", c, ",",e;
+
+write "<Do While>";
+do {
+    write "a: ", a;
+    a = a - 1;
+} while (a != 0);

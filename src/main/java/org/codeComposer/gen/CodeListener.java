@@ -1,4 +1,4 @@
-// Generated from /home/kkobari/semester_6/PJP/project/src/main/antlr/project/Code.g4 by ANTLR 4.13.1
+// Generated from /home/kkobari/OneDrive/School/semester_6/PJP/project/src/main/antlr/project/Code.g4 by ANTLR 4.13.1
 package org.codeComposer.gen;
 import org.antlr.v4.runtime.tree.ParseTreeListener;
 
@@ -113,6 +113,18 @@ public interface CodeListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitLoopStat(CodeParser.LoopStatContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code doWhileStat}
+	 * labeled alternative in {@link CodeParser#statement}.
+	 * @param ctx the parse tree
+	 */
+	void enterDoWhileStat(CodeParser.DoWhileStatContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code doWhileStat}
+	 * labeled alternative in {@link CodeParser#statement}.
+	 * @param ctx the parse tree
+	 */
+	void exitDoWhileStat(CodeParser.DoWhileStatContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link CodeParser#type}.
 	 * @param ctx the parse tree

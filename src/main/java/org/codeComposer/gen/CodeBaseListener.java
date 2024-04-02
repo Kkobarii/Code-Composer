@@ -1,4 +1,4 @@
-// Generated from /home/kkobari/semester_6/PJP/project/src/main/antlr/project/Code.g4 by ANTLR 4.13.1
+// Generated from /home/kkobari/OneDrive/School/semester_6/PJP/project/src/main/antlr/project/Code.g4 by ANTLR 4.13.1
 package org.codeComposer.gen;
 
 import org.antlr.v4.runtime.ParserRuleContext;
@@ -120,6 +120,18 @@ public class CodeBaseListener implements CodeListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitLoopStat(CodeParser.LoopStatContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterDoWhileStat(CodeParser.DoWhileStatContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitDoWhileStat(CodeParser.DoWhileStatContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *

@@ -12,6 +12,7 @@ statement: ';'                                  # emptyStat
     | '{' statement* '}'                        # blockStat
     | 'if' '(' condition ')' statement ('else' statement)?  # conditionStat
     | 'while' '(' condition ')' statement      # loopStat
+    | 'do' statement 'while' '(' condition ')' ';'  # doWhileStat
     ;
 
 /** Types */
@@ -32,7 +33,7 @@ expression: variable                             # var
     | expression op=('==' | '!=') expression       # comparison
     | expression op=('&&' | '||') expression       # logical
     | '!' expression                            # logicalNot
-    | variable op='=' expression                # assignment
+    | <assoc=right> variable op='=' expression    # assignment
     | '(' expression ')'                         # parentheses
     ;
 
@@ -45,4 +46,5 @@ INT: [0-9]+;
 FLOAT: [0-9]+'.'[0-9]+;
 STRING: '"' ~'"'* '"';
 BOOL: 'true' | 'false';
-WS : [ \t\r\n]+ -> skip ;   // toss out whitespace
+WS : [ \t\r\n]+ -> skip ;
+COMMENT : '//' ~[\r\n]* -> skip;
