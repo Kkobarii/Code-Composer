@@ -1,4 +1,4 @@
-package org.codeComposer.parser;
+package org.codeComposer.parser.error;
 
 import lombok.extern.slf4j.Slf4j;
 import org.antlr.v4.runtime.BaseErrorListener;

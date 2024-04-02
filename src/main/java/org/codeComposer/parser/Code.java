@@ -5,6 +5,8 @@ import org.antlr.v4.runtime.CharStreams;
 import org.antlr.v4.runtime.CommonTokenStream;
 import org.codeComposer.gen.CodeLexer;
 import org.codeComposer.gen.CodeParser;
+import org.codeComposer.parser.error.ErrorListener;
+import org.codeComposer.parser.error.ErrorHandler;
 
 @Slf4j
 public class Code {
@@ -13,7 +15,7 @@ public class Code {
     CodeParser.ProgramContext context = null;
 
     public Code() {
-        TypeErrorHandler.clearErrors();
+        ErrorHandler.clearErrors();
     }
 
     public boolean parse(String input) {
@@ -39,8 +41,8 @@ public class Code {
         TypeCheckVisitor visitor = new TypeCheckVisitor();
         visitor.visit(context);
 
-        if (TypeErrorHandler.hasErrors()) {
-            TypeErrorHandler.logErrors();
+        if (ErrorHandler.hasErrors()) {
+            ErrorHandler.logErrors();
             log.error("Checking failed!");
             return false;
         }

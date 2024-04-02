@@ -3,6 +3,9 @@ package org.codeComposer.parser;
 import lombok.extern.slf4j.Slf4j;
 import org.codeComposer.gen.CodeBaseVisitor;
 import org.codeComposer.gen.CodeParser;
+import org.codeComposer.parser.error.ErrorHandler;
+import org.codeComposer.parser.error.model.DeclarationError;
+import org.codeComposer.parser.error.model.TypeError;
 
 @Slf4j
 public class TypeCheckVisitor extends CodeBaseVisitor<Type> {
@@ -36,10 +39,7 @@ public class TypeCheckVisitor extends CodeBaseVisitor<Type> {
         // put them in symbol table and check for redeclaration
         for (CodeParser.VariableContext variable : ctx.variable()) {
             if (symbolTable.contains(variable.ID().getText())) {
-                TypeErrorHandler.addError("Variable '" + variable.ID().getText() + "' already declared",
-                        ctx.getText(),
-                        variable.ID().getSymbol().getLine(),
-                        variable.ID().getSymbol().getCharPositionInLine());
+                ErrorHandler.addError(DeclarationError.of("already declared", variable.ID().getText(), type, ctx, variable.ID().getSymbol()));
             }
             symbolTable.add(variable.ID().getText(), type);
         }
@@ -50,10 +50,7 @@ public class TypeCheckVisitor extends CodeBaseVisitor<Type> {
     @Override
     public Type visitVariable(CodeParser.VariableContext ctx) {
         if (!symbolTable.contains(ctx.ID().getText())) {
-            TypeErrorHandler.addError("Variable '" + ctx.ID().getText() + "' not declared",
-                    ctx.getText(),
-                    ctx.ID().getSymbol().getLine(),
-                    ctx.ID().getSymbol().getCharPositionInLine());
+            ErrorHandler.addError(DeclarationError.of("not declared", ctx.ID().getText(), Type.VOID, ctx, ctx.ID().getSymbol()));
             return Type.ERROR;
         }
 
@@ -83,7 +80,7 @@ public class TypeCheckVisitor extends CodeBaseVisitor<Type> {
     public Type visitUnaryMinusExpr(CodeParser.UnaryMinusExprContext ctx) {
         Type type = visit(ctx.expression());
         if (type != Type.INT && type != Type.FLOAT) {
-            TypeErrorHandler.addError("Invalid type for unnary minus", ctx.getText(), ctx.getStart().getLine(), ctx.getStart().getCharPositionInLine());
+            ErrorHandler.addError(TypeError.of("unary minus", ctx.expression().getText(), type, ctx, ctx.expression().getStart()));
             return Type.ERROR;
         }
         return type;
@@ -100,12 +97,12 @@ public class TypeCheckVisitor extends CodeBaseVisitor<Type> {
 
         // correct types
         if (left != Type.INT && left != Type.FLOAT) {
-            TypeErrorHandler.addError("Invalid type for binary arithmetic expression", ctx.getText(), ctx.getStart().getLine(), ctx.getStart().getCharPositionInLine());
+            ErrorHandler.addError(TypeError.of("binary arithmetic", ctx.left.getText(), left, ctx, ctx.left.getStart()));
             return Type.ERROR;
         }
 
         if (right != Type.INT && right != Type.FLOAT) {
-            TypeErrorHandler.addError("Invalid type for binary arithmetic expression", ctx.getText(), ctx.getStart().getLine(), ctx.getStart().getCharPositionInLine());
+            ErrorHandler.addError(TypeError.of("binary arithmetic", ctx.right.getText(), right, ctx, ctx.right.getStart()));
             return Type.ERROR;
         }
 
@@ -128,12 +125,12 @@ public class TypeCheckVisitor extends CodeBaseVisitor<Type> {
 
         // correct types
         if (left != Type.INT) {
-            TypeErrorHandler.addError("Invalid type for modulo expression", ctx.getText(), ctx.getStart().getLine(), ctx.getStart().getCharPositionInLine());
+            ErrorHandler.addError(TypeError.of("modulo", ctx.left.getText(), left, ctx, ctx.left.getStart()));
             return Type.ERROR;
         }
 
         if (right != Type.INT) {
-            TypeErrorHandler.addError("Invalid type for modulo expression", ctx.getText(), ctx.getStart().getLine(), ctx.getStart().getCharPositionInLine());
+            ErrorHandler.addError(TypeError.of("modulo", ctx.right.getText(), right, ctx, ctx.right.getStart()));
             return Type.ERROR;
         }
 
@@ -151,12 +148,12 @@ public class TypeCheckVisitor extends CodeBaseVisitor<Type> {
 
         // correct types
         if (left != Type.STRING) {
-            TypeErrorHandler.addError("Invalid type for concatenation expression", ctx.getText(), ctx.getStart().getLine(), ctx.getStart().getCharPositionInLine());
+            ErrorHandler.addError(TypeError.of("concatenation", ctx.left.getText(), left, ctx, ctx.left.getStart()));
             return Type.ERROR;
         }
 
         if (right != Type.STRING) {
-            TypeErrorHandler.addError("Invalid type for concatenation expression", ctx.getText(), ctx.getStart().getLine(), ctx.getStart().getCharPositionInLine());
+            ErrorHandler.addError(TypeError.of("concatenation", ctx.right.getText(), right, ctx, ctx.right.getStart()));
             return Type.ERROR;
         }
 
@@ -174,12 +171,12 @@ public class TypeCheckVisitor extends CodeBaseVisitor<Type> {
 
         // correct types
         if (left != Type.INT && left != Type.FLOAT) {
-            TypeErrorHandler.addError("Invalid type for relational expression", ctx.getText(), ctx.getStart().getLine(), ctx.getStart().getCharPositionInLine());
+            ErrorHandler.addError(TypeError.of("relational", ctx.left.getText(), left, ctx, ctx.left.getStart()));
             return Type.ERROR;
         }
 
         if (right != Type.INT && right != Type.FLOAT) {
-            TypeErrorHandler.addError("Invalid type for relational expression", ctx.getText(), ctx.getStart().getLine(), ctx.getStart().getCharPositionInLine());
+            ErrorHandler.addError(TypeError.of("relational", ctx.right.getText(), right, ctx, ctx.right.getStart()));
             return Type.ERROR;
         }
 
@@ -197,12 +194,12 @@ public class TypeCheckVisitor extends CodeBaseVisitor<Type> {
 
         // correct types
         if (left != Type.INT && left != Type.FLOAT && left != Type.STRING) {
-            TypeErrorHandler.addError("Invalid type for comparison expression", ctx.getText(), ctx.getStart().getLine(), ctx.getStart().getCharPositionInLine());
+            ErrorHandler.addError(TypeError.of("comparison", ctx.left.getText(), left, ctx, ctx.left.getStart()));
             return Type.ERROR;
         }
 
         if (right != Type.INT && right != Type.FLOAT && right != Type.STRING) {
-            TypeErrorHandler.addError("Invalid type for comparison expression", ctx.getText(), ctx.getStart().getLine(), ctx.getStart().getCharPositionInLine());
+            ErrorHandler.addError(TypeError.of("comparison", ctx.right.getText(), right, ctx, ctx.right.getStart()));
             return Type.ERROR;
         }
 
@@ -220,12 +217,12 @@ public class TypeCheckVisitor extends CodeBaseVisitor<Type> {
 
         // correct types
         if (left != Type.BOOL) {
-            TypeErrorHandler.addError("Invalid type for logical expression", ctx.getText(), ctx.getStart().getLine(), ctx.getStart().getCharPositionInLine());
+            ErrorHandler.addError(TypeError.of("logical", ctx.left.getText(), left, ctx, ctx.left.getStart()));
             return Type.ERROR;
         }
 
         if (right != Type.BOOL) {
-            TypeErrorHandler.addError("Invalid type for logical expression", ctx.getText(), ctx.getStart().getLine(), ctx.getStart().getCharPositionInLine());
+            ErrorHandler.addError(TypeError.of("logical", ctx.right.getText(), right, ctx, ctx.right.getStart()));
             return Type.ERROR;
         }
 
@@ -237,7 +234,7 @@ public class TypeCheckVisitor extends CodeBaseVisitor<Type> {
         Type type = visit(ctx.expression());
 
         if (type != Type.BOOL) {
-            TypeErrorHandler.addError("Invalid type for logical not expression", ctx.getText(), ctx.getStart().getLine(), ctx.getStart().getCharPositionInLine());
+            ErrorHandler.addError(TypeError.of("logical not", ctx.expression().getText(), type, ctx, ctx.expression().getStart()));
             return Type.ERROR;
         }
 
@@ -258,7 +255,7 @@ public class TypeCheckVisitor extends CodeBaseVisitor<Type> {
         }
 
         if (left != right) {
-            TypeErrorHandler.addError("Invalid type for assignment expression", ctx.getText(), ctx.getStart().getLine(), ctx.getStart().getCharPositionInLine());
+            ErrorHandler.addError(TypeError.of("assignment", ctx.expression().getText(), right, ctx, ctx.expression().getStart()));
             return Type.ERROR;
         }
 
@@ -275,7 +272,7 @@ public class TypeCheckVisitor extends CodeBaseVisitor<Type> {
         Type type = visit(ctx.expression());
 
         if (type != Type.BOOL) {
-            TypeErrorHandler.addError("Invalid type for condition", ctx.getText(), ctx.getStart().getLine(), ctx.getStart().getCharPositionInLine());
+            ErrorHandler.addError(TypeError.of("condition", ctx.expression().getText(), type, ctx, ctx.expression().getStart()));
             return Type.ERROR;
         }
 

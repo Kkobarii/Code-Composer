@@ -98,4 +98,20 @@ public class IfTest {
         """;
         assertFalse(Util.check(input));
     }
+
+    @Test
+    public void testComplexIf() {
+        String input = """
+            int x;
+            x = 5;
+            if (x > 0 && x < 10) {
+                int a;
+            } else if (x > 10 && x < 20) {
+                float b;
+            } else {
+                string c;
+            }
+        """;
+        assertTrue(Util.check(input));
+    }
 }
