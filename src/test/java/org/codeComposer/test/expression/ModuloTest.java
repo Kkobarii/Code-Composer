@@ -6,49 +6,52 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-public class Assignment {
+public class ModuloTest {
 
     @Test
-    public void testAssignInt() {
+    public void testModulo() {
         String input = """
-            int a;
-            a = 5;
+            3 % 2;
         """;
         assertTrue(Util.check(input));
     }
 
     @Test
-    public void testAssignFloat() {
+    public void testModuloInt() {
+        String input = """
+            int a;
+            int b;
+            a % b;
+        """;
+        assertTrue(Util.check(input));
+    }
+
+    @Test
+    public void testModuloFloat() {
         String input = """
             float a;
-            a = 5.0;
+            float b;
+            a % b;
         """;
-        assertTrue(Util.check(input));
+        assertFalse(Util.check(input));
     }
 
     @Test
-    public void testAssignString() {
+    public void testModuloString() {
         String input = """
             string a;
-            a = "hello";
+            string b;
+            a % b;
         """;
-        assertTrue(Util.check(input));
+        assertFalse(Util.check(input));
     }
 
     @Test
-    public void testAssignBool() {
+    public void testModuloBool() {
         String input = """
             bool a;
-            a = true;
-        """;
-        assertTrue(Util.check(input));
-    }
-
-    @Test
-    public void testAssignMixed() {
-        String input = """
-            int a;
-            a = 0.9;
+            bool b;
+            a % b;
         """;
         assertFalse(Util.check(input));
     }

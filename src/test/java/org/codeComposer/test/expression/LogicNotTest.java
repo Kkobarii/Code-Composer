@@ -6,44 +6,48 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-public class Concatenation {
+public class LogicNotTest {
 
     @Test
-    public void testConcatenation() {
+    public void testLogicNot() {
         String input = """
-            "string" . "string";
+            !false;
         """;
         assertTrue(Util.check(input));
     }
 
     @Test
-    public void testConcatenationInt() {
+    public void testLogicNotInt() {
         String input = """
-            1 . 2;
+            int a;
+            !a;
         """;
         assertFalse(Util.check(input));
     }
 
     @Test
-    public void testConcatenationFloat() {
+    public void testLogicNotFloat() {
         String input = """
-            1.0 . 2.0;
+            float a;
+            !a;
         """;
         assertFalse(Util.check(input));
     }
 
     @Test
-    public void testConcatenationBool() {
+    public void testLogicNotString() {
         String input = """
-            true . false;
+            string a;
+            !a;
         """;
         assertFalse(Util.check(input));
     }
 
     @Test
-    public void testConcatenationString() {
+    public void testLogicNotBool() {
         String input = """
-            "string" . "string";
+            bool a;
+            !a;
         """;
         assertTrue(Util.check(input));
     }

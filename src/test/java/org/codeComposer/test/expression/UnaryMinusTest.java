@@ -3,59 +3,52 @@ package org.codeComposer.test.expression;
 import org.codeComposer.Util;
 import org.junit.jupiter.api.Test;
 
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-public class Parenthesis {
+public class UnaryMinusTest {
 
     @Test
-    public void testParenthesis() {
+    public void testUnaryMinusNoDeclaration() {
         String input = """
-            (true);
+            -a;
         """;
-        assertTrue(Util.check(input));
+        assertFalse(Util.check(input));
     }
 
     @Test
-    public void testParenthesisInt() {
+    public void testUnaryMinusInt() {
         String input = """
             int a;
-            (a);
+            -a;
         """;
         assertTrue(Util.check(input));
     }
 
     @Test
-    public void testParenthesisFloat() {
+    public void testUnaryMinusFloat() {
         String input = """
             float a;
-            (a);
+            -a;
         """;
         assertTrue(Util.check(input));
     }
 
     @Test
-    public void testParenthesisString() {
+    public void testUnaryMinusString() {
         String input = """
             string a;
-            (a);
+            -a;
         """;
-        assertTrue(Util.check(input));
+        assertFalse(Util.check(input));
     }
 
     @Test
-    public void testParenthesisBool() {
+    public void testUnaryMinusBool() {
         String input = """
             bool a;
-            (a);
+            -a;
         """;
-        assertTrue(Util.check(input));
-    }
-
-    @Test
-    public void testParenthesisOpertion() {
-        String input = """
-            (true && false);
-        """;
-        assertTrue(Util.check(input));
+        assertFalse(Util.check(input));
     }
 }

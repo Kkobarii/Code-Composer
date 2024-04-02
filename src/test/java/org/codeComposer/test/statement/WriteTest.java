@@ -1,81 +1,80 @@
-package org.codeComposer.test.expression;
+package org.codeComposer.test.statement;
 
 import org.codeComposer.Util;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
-public class RelationalOperators {
-
-    @Test
-    public void testGreater() {
-        String input = """
-            1 > 2;
-        """;
-        assertTrue(Util.check(input));
-    }
+public class WriteTest {
 
     @Test
-    public void testGreaterEqual() {
-        String input = """
-            1 >= 2;
-        """;
-        assertTrue(Util.check(input));
-    }
-
-    @Test
-    public void testLess() {
-        String input = """
-            1 < 2;
-        """;
-        assertTrue(Util.check(input));
-    }
-
-    @Test
-    public void testLessEqual() {
-        String input = """
-            1 <= 2;
-        """;
-        assertTrue(Util.check(input));
-    }
-
-    @Test
-    public void testInt() {
+    public void testWriteInt() {
         String input = """
             int a;
-            int b;
-            a > b;
+            write a;
         """;
         assertTrue(Util.check(input));
     }
 
     @Test
-    public void testFloat() {
+    public void testWriteFloat() {
         String input = """
             float a;
-            float b;
-            a > b;
+            write a;
         """;
         assertTrue(Util.check(input));
     }
 
     @Test
-    public void testString() {
+    public void testWriteString() {
         String input = """
             string a;
-            string b;
-            a > b;
+            write a;
+        """;
+        assertTrue(Util.check(input));
+    }
+
+    @Test
+    public void testWriteBool() {
+        String input = """
+            bool a;
+            write a;
+        """;
+        assertTrue(Util.check(input));
+    }
+
+    @Test
+    public void testWriteWord() {
+        String input = """
+            write "ahoj";
+        """;
+        assertTrue(Util.check(input));
+    }
+
+    @Test
+    public void testWriteMultipleVariables() {
+        String input = """
+            int a;
+            float b;
+            string c;
+            bool d;
+            write a, b, c, d;
+        """;
+        assertTrue(Util.check(input));
+    }
+
+    @Test
+    public void testWriteNoDeclaration() {
+        String input = """
+            write a;
         """;
         assertFalse(Util.check(input));
     }
 
     @Test
-    public void testBool() {
+    public void testWriteNonsense() {
         String input = """
-            bool a;
-            bool b;
-            a > b;
+            write "ahoj" > 5;
         """;
         assertFalse(Util.check(input));
     }

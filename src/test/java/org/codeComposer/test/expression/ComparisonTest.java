@@ -6,61 +6,61 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-public class LogicAndOr {
+public class ComparisonTest {
 
     @Test
-    public void testLogicAnd() {
+    public void testEqual() {
         String input = """
-            true && false;
+            2 == 2;
         """;
         assertTrue(Util.check(input));
     }
 
     @Test
-    public void testLogicOr() {
+    public void testNotEqual() {
         String input = """
-            true || false;
+            2 != 2;
         """;
         assertTrue(Util.check(input));
     }
 
     @Test
-    public void testLogicAndInt() {
+    public void testInt() {
         String input = """
             int a;
             int b;
-            a && b;
+            a == b;
         """;
-        assertFalse(Util.check(input));
+        assertTrue(Util.check(input));
     }
 
     @Test
-    public void testLogicAndFloat() {
+    public void testFloat() {
         String input = """
             float a;
             float b;
-            a && b;
+            a == b;
         """;
-        assertFalse(Util.check(input));
+        assertTrue(Util.check(input));
     }
 
     @Test
-    public void testLogicAndString() {
+    public void testString() {
         String input = """
             string a;
             string b;
-            a && b;
+            a == b;
         """;
-        assertFalse(Util.check(input));
+        assertTrue(Util.check(input));
     }
 
     @Test
-    public void testLogicAndBool() {
+    public void testBool() {
         String input = """
             bool a;
             bool b;
-            a && b;
+            a == b;
         """;
-        assertTrue(Util.check(input));
+        assertFalse(Util.check(input));
     }
 }

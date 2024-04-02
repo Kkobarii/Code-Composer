@@ -6,52 +6,76 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-public class Modulo {
+public class RelationalOperatorsTest {
 
     @Test
-    public void testModulo() {
+    public void testGreater() {
         String input = """
-            3 % 2;
+            1 > 2;
         """;
         assertTrue(Util.check(input));
     }
 
     @Test
-    public void testModuloInt() {
+    public void testGreaterEqual() {
+        String input = """
+            1 >= 2;
+        """;
+        assertTrue(Util.check(input));
+    }
+
+    @Test
+    public void testLess() {
+        String input = """
+            1 < 2;
+        """;
+        assertTrue(Util.check(input));
+    }
+
+    @Test
+    public void testLessEqual() {
+        String input = """
+            1 <= 2;
+        """;
+        assertTrue(Util.check(input));
+    }
+
+    @Test
+    public void testInt() {
         String input = """
             int a;
             int b;
-            a % b;
+            a > b;
         """;
         assertTrue(Util.check(input));
     }
 
     @Test
-    public void testModuloFloat() {
+    public void testFloat() {
         String input = """
             float a;
             float b;
-            a % b;
+            a > b;
         """;
-        assertFalse(Util.check(input));
+        assertTrue(Util.check(input));
     }
 
     @Test
-    public void testModuloString() {
+    public void testString() {
         String input = """
             string a;
             string b;
-            a % b;
+            a > b;
         """;
         assertFalse(Util.check(input));
     }
 
     @Test
-    public void testModuloBool() {
+    public void testBool() {
         String input = """
             bool a;
             bool b;
-            a % b;
+            a > b;
         """;
         assertFalse(Util.check(input));
     }
