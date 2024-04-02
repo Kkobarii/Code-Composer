@@ -161,6 +161,18 @@ public class CodeBaseListener implements CodeListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
+	@Override public void enterLogicalNotExpr(CodeParser.LogicalNotExprContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitLogicalNotExpr(CodeParser.LogicalNotExprContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
 	@Override public void enterAssignmentExpr(CodeParser.AssignmentExprContext ctx) { }
 	/**
 	 * {@inheritDoc}
@@ -173,13 +185,13 @@ public class CodeBaseListener implements CodeListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterIntExpr(CodeParser.IntExprContext ctx) { }
+	@Override public void enterVariableExpr(CodeParser.VariableExprContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitIntExpr(CodeParser.IntExprContext ctx) { }
+	@Override public void exitVariableExpr(CodeParser.VariableExprContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -197,6 +209,18 @@ public class CodeBaseListener implements CodeListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
+	@Override public void enterUnaryMinusExpr(CodeParser.UnaryMinusExprContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitUnaryMinusExpr(CodeParser.UnaryMinusExprContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
 	@Override public void enterConcatenationExpr(CodeParser.ConcatenationExprContext ctx) { }
 	/**
 	 * {@inheritDoc}
@@ -204,6 +228,30 @@ public class CodeBaseListener implements CodeListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitConcatenationExpr(CodeParser.ConcatenationExprContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterLiteralExpr(CodeParser.LiteralExprContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitLiteralExpr(CodeParser.LiteralExprContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterBinaryArithmeticExpr(CodeParser.BinaryArithmeticExprContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitBinaryArithmeticExpr(CodeParser.BinaryArithmeticExprContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -257,97 +305,25 @@ public class CodeBaseListener implements CodeListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterStringExpr(CodeParser.StringExprContext ctx) { }
+	@Override public void enterCond(CodeParser.CondContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitStringExpr(CodeParser.StringExprContext ctx) { }
+	@Override public void exitCond(CodeParser.CondContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterLogicalNotExpr(CodeParser.LogicalNotExprContext ctx) { }
+	@Override public void enterLiteral(CodeParser.LiteralContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitLogicalNotExpr(CodeParser.LogicalNotExprContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterVarExpr(CodeParser.VarExprContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitVarExpr(CodeParser.VarExprContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterFloatExpr(CodeParser.FloatExprContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitFloatExpr(CodeParser.FloatExprContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterUnaryMinusExpr(CodeParser.UnaryMinusExprContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitUnaryMinusExpr(CodeParser.UnaryMinusExprContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterBinaryArithmeticExpr(CodeParser.BinaryArithmeticExprContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitBinaryArithmeticExpr(CodeParser.BinaryArithmeticExprContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterBoolExpr(CodeParser.BoolExprContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitBoolExpr(CodeParser.BoolExprContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterHelp(CodeParser.HelpContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitHelp(CodeParser.HelpContext ctx) { }
+	@Override public void exitLiteral(CodeParser.LiteralContext ctx) { }
 
 	/**
 	 * {@inheritDoc}

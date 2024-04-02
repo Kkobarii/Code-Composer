@@ -33,8 +33,6 @@ public class TypeCheckVisitor extends CodeBaseVisitor<Type> {
     public Type visitVarDeclStat(CodeParser.VarDeclStatContext ctx) {
         Type type = mapType(ctx.type().getText());
 
-        log.debug("Variable declaration: " + type);
-
         // put them in symbol table and check for redeclaration
         for (CodeParser.VariableContext variable : ctx.variable()) {
             if (symbolTable.contains(variable.ID().getText())) {
@@ -63,23 +61,22 @@ public class TypeCheckVisitor extends CodeBaseVisitor<Type> {
     }
 
     @Override
-    public Type visitIntExpr(CodeParser.IntExprContext ctx) {
-        return Type.INT;
+    public Type visitLiteralExpr(CodeParser.LiteralExprContext ctx) {
+        return visit(ctx.literal());
     }
 
     @Override
-    public Type visitFloatExpr(CodeParser.FloatExprContext ctx) {
-        return Type.FLOAT;
-    }
-
-    @Override
-    public Type visitStringExpr(CodeParser.StringExprContext ctx) {
-        return Type.STRING;
-    }
-
-    @Override
-    public Type visitBoolExpr(CodeParser.BoolExprContext ctx) {
-        return Type.BOOL;
+    public Type visitLiteral(CodeParser.LiteralContext ctx) {
+        if (ctx.INT() != null) {
+            return Type.INT;
+        } if (ctx.FLOAT() != null) {
+            return Type.FLOAT;
+        } if (ctx.STRING() != null) {
+            return Type.STRING;
+        } if (ctx.BOOL() != null) {
+            return Type.BOOL;
+        }
+        return Type.ERROR;
     }
 
     @Override
@@ -164,5 +161,124 @@ public class TypeCheckVisitor extends CodeBaseVisitor<Type> {
         }
 
         return Type.STRING;
+    }
+
+    @Override
+    public Type visitRelationalExpr(CodeParser.RelationalExprContext ctx) {
+        Type left = visit(ctx.left);
+        Type right = visit(ctx.right);
+
+        if (left == Type.ERROR || right == Type.ERROR) {
+            return Type.ERROR;
+        }
+
+        // correct types
+        if (left != Type.INT && left != Type.FLOAT) {
+            TypeErrorHandler.addError("Invalid type for relational expression", ctx.getText(), ctx.getStart().getLine(), ctx.getStart().getCharPositionInLine());
+            return Type.ERROR;
+        }
+
+        if (right != Type.INT && right != Type.FLOAT) {
+            TypeErrorHandler.addError("Invalid type for relational expression", ctx.getText(), ctx.getStart().getLine(), ctx.getStart().getCharPositionInLine());
+            return Type.ERROR;
+        }
+
+        return Type.BOOL;
+    }
+
+    @Override
+    public Type visitComparisonExpr(CodeParser.ComparisonExprContext ctx) {
+        Type left = visit(ctx.left);
+        Type right = visit(ctx.right);
+
+        if (left == Type.ERROR || right == Type.ERROR) {
+            return Type.ERROR;
+        }
+
+        // correct types
+        if (left != Type.INT && left != Type.FLOAT && left != Type.STRING) {
+            TypeErrorHandler.addError("Invalid type for comparison expression", ctx.getText(), ctx.getStart().getLine(), ctx.getStart().getCharPositionInLine());
+            return Type.ERROR;
+        }
+
+        if (right != Type.INT && right != Type.FLOAT && right != Type.STRING) {
+            TypeErrorHandler.addError("Invalid type for comparison expression", ctx.getText(), ctx.getStart().getLine(), ctx.getStart().getCharPositionInLine());
+            return Type.ERROR;
+        }
+
+        return Type.BOOL;
+    }
+
+    @Override
+    public Type visitLogicalExpr(CodeParser.LogicalExprContext ctx) {
+        Type left = visit(ctx.left);
+        Type right = visit(ctx.right);
+
+        if (left == Type.ERROR || right == Type.ERROR) {
+            return Type.ERROR;
+        }
+
+        // correct types
+        if (left != Type.BOOL) {
+            TypeErrorHandler.addError("Invalid type for logical expression", ctx.getText(), ctx.getStart().getLine(), ctx.getStart().getCharPositionInLine());
+            return Type.ERROR;
+        }
+
+        if (right != Type.BOOL) {
+            TypeErrorHandler.addError("Invalid type for logical expression", ctx.getText(), ctx.getStart().getLine(), ctx.getStart().getCharPositionInLine());
+            return Type.ERROR;
+        }
+
+        return Type.BOOL;
+    }
+
+    @Override
+    public Type visitLogicalNotExpr(CodeParser.LogicalNotExprContext ctx) {
+        Type type = visit(ctx.expression());
+
+        if (type != Type.BOOL) {
+            TypeErrorHandler.addError("Invalid type for logical not expression", ctx.getText(), ctx.getStart().getLine(), ctx.getStart().getCharPositionInLine());
+            return Type.ERROR;
+        }
+
+        return Type.BOOL;
+    }
+
+    @Override
+    public Type visitAssignmentExpr(CodeParser.AssignmentExprContext ctx) {
+        Type left = visit(ctx.variable());
+        Type right = visit(ctx.expression());
+
+        if (left == Type.ERROR || right == Type.ERROR) {
+            return Type.ERROR;
+        }
+
+        if (left == Type.FLOAT && right == Type.INT) {
+            return Type.FLOAT;
+        }
+
+        if (left != right) {
+            TypeErrorHandler.addError("Invalid type for assignment expression", ctx.getText(), ctx.getStart().getLine(), ctx.getStart().getCharPositionInLine());
+            return Type.ERROR;
+        }
+
+        return left;
+    }
+
+    @Override
+    public Type visitParenthesesExpr(CodeParser.ParenthesesExprContext ctx) {
+        return visit(ctx.expression());
+    }
+
+    @Override
+    public Type visitCond(CodeParser.CondContext ctx) {
+        Type type = visit(ctx.expression());
+
+        if (type != Type.BOOL) {
+            TypeErrorHandler.addError("Invalid type for condition", ctx.getText(), ctx.getStart().getLine(), ctx.getStart().getCharPositionInLine());
+            return Type.ERROR;
+        }
+
+        return type;
     }
 }

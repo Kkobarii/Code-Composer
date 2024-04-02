@@ -61,6 +61,7 @@ public class While {
     @Test
     public void testWhileEmptyBlock() {
         String input = """
+            int a;
             while (a < 10) {}
         """;
         assertTrue(Util.check(input));
@@ -69,6 +70,7 @@ public class While {
     @Test
     public void testWhileBadCondition() {
         String input = """
+            int a;
             while ("ahoj") {
                 a = a + 1;
             }

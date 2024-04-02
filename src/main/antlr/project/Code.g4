@@ -4,15 +4,16 @@ grammar Code;
 program: (statement)+;
 
 /** An expression statement. */
-statement: ';'                                  # emptyStat
-    | type variable (',' variable)* ';'         # varDeclStat
-    | expression ';'                            # expressionStat
-    | 'read' variable (',' variable)* ';'       # readStat
-    | 'write' expression (',' expression)* ';'  # writeStat
-    | '{' statement* '}'                        # blockStat
+statement
+    : ';'                                                   # emptyStat
+    | type variable (',' variable)* ';'                     # varDeclStat
+    | expression ';'                                        # expressionStat
+    | 'read' variable (',' variable)* ';'                   # readStat
+    | 'write' expression (',' expression)* ';'              # writeStat
+    | '{' statement* '}'                                    # blockStat
     | 'if' '(' condition ')' statement ('else' statement)?  # ifStat
-    | 'while' '(' condition ')' statement      # whileStat
-    | 'do' statement 'while' '(' condition ')' ';'  # doWhileStat
+    | 'while' '(' condition ')' statement                   # whileStat
+    | 'do' statement 'while' '(' condition ')' ';'          # doWhileStat
     ;
 
 /** Types */
@@ -20,31 +21,36 @@ type: 'int' | 'float' | 'string' | 'bool';
 variable: ID;
 
 /** Expressions */
-expression: variable                             # varExpr
-    | INT                                 # intExpr
-    | FLOAT                                     # floatExpr
-    | STRING                                    # stringExpr
-    | BOOL                                      # boolExpr
-    | '-' expression                            # unaryMinusExpr
+expression
+    : literal                                                       # literalExpr
+    | variable                                                      # variableExpr
+    | '-' expression                                                # unaryMinusExpr
     | left=expression op=('+' | '-' | '*' | '/') right=expression   # binaryArithmeticExpr
-    | left=expression op='%' right=expression                 # moduloExpr
-    | left=expression op='.' right=expression                 # concatenationExpr
-    | left=expression op=('<' | '<=' | '>' | '>=') right=expression   # relationalExpr
-    | left=expression op=('==' | '!=') right=expression       # comparisonExpr
-    | left=expression op=('&&' | '||') right=expression       # logicalExpr
-    | '!' expression                            # logicalNotExpr
-    | <assoc=right> variable op='=' expression    # assignmentExpr
-    | '(' expression ')'                         # parenthesesExpr
+    | left=expression op='%' right=expression                       # moduloExpr
+    | left=expression op='.' right=expression                       # concatenationExpr
+    | left=expression op=('<' | '<=' | '>' | '>=') right=expression # relationalExpr
+    | left=expression op=('==' | '!=') right=expression             # comparisonExpr
+    | left=expression op=('&&' | '||') right=expression             # logicalExpr
+    | '!' expression                                                # logicalNotExpr
+    | <assoc=right> variable op='=' expression                      # assignmentExpr
+    | '(' expression ')'                                            # parenthesesExpr
     ;
 
 /** Conditions */
-condition: expression # help;
+condition: expression # cond;
 
 /** Literals */
-ID: [a-zA-Z_][a-zA-Z_0-9]*;
-INT: [0-9]+;
-FLOAT: [0-9]+'.'[0-9]+;
+literal: INT | FLOAT | STRING | BOOL;
+
+INT: NUMBER+;
+FLOAT: NUMBER+'.'NUMBER+;
 STRING: '"' ~'"'* '"';
 BOOL: 'true' | 'false';
+
+ID: LETTER (LETTER | NUMBER)*;
+
 WS : [ \t\r\n]+ -> skip ;
 COMMENT : '//' ~[\r\n]* -> skip;
+
+NUMBER: [0-9];
+LETTER: [a-zA-Z];
