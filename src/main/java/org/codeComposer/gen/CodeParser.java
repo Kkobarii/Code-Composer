@@ -197,6 +197,32 @@ public class CodeParser extends Parser {
 		}
 	}
 	@SuppressWarnings("CheckReturnValue")
+	public static class IfStatContext extends StatementContext {
+		public ConditionContext condition() {
+			return getRuleContext(ConditionContext.class,0);
+		}
+		public List<StatementContext> statement() {
+			return getRuleContexts(StatementContext.class);
+		}
+		public StatementContext statement(int i) {
+			return getRuleContext(StatementContext.class,i);
+		}
+		public IfStatContext(StatementContext ctx) { copyFrom(ctx); }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof CodeListener ) ((CodeListener)listener).enterIfStat(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof CodeListener ) ((CodeListener)listener).exitIfStat(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof CodeVisitor ) return ((CodeVisitor<? extends T>)visitor).visitIfStat(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+	@SuppressWarnings("CheckReturnValue")
 	public static class DoWhileStatContext extends StatementContext {
 		public StatementContext statement() {
 			return getRuleContext(StatementContext.class,0);
@@ -239,32 +265,6 @@ public class CodeParser extends Parser {
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof CodeVisitor ) return ((CodeVisitor<? extends T>)visitor).visitBlockStat(this);
-			else return visitor.visitChildren(this);
-		}
-	}
-	@SuppressWarnings("CheckReturnValue")
-	public static class ConditionStatContext extends StatementContext {
-		public ConditionContext condition() {
-			return getRuleContext(ConditionContext.class,0);
-		}
-		public List<StatementContext> statement() {
-			return getRuleContexts(StatementContext.class);
-		}
-		public StatementContext statement(int i) {
-			return getRuleContext(StatementContext.class,i);
-		}
-		public ConditionStatContext(StatementContext ctx) { copyFrom(ctx); }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof CodeListener ) ((CodeListener)listener).enterConditionStat(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof CodeListener ) ((CodeListener)listener).exitConditionStat(this);
-		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof CodeVisitor ) return ((CodeVisitor<? extends T>)visitor).visitConditionStat(this);
 			else return visitor.visitChildren(this);
 		}
 	}
@@ -315,29 +315,6 @@ public class CodeParser extends Parser {
 		}
 	}
 	@SuppressWarnings("CheckReturnValue")
-	public static class LoopStatContext extends StatementContext {
-		public ConditionContext condition() {
-			return getRuleContext(ConditionContext.class,0);
-		}
-		public StatementContext statement() {
-			return getRuleContext(StatementContext.class,0);
-		}
-		public LoopStatContext(StatementContext ctx) { copyFrom(ctx); }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof CodeListener ) ((CodeListener)listener).enterLoopStat(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof CodeListener ) ((CodeListener)listener).exitLoopStat(this);
-		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof CodeVisitor ) return ((CodeVisitor<? extends T>)visitor).visitLoopStat(this);
-			else return visitor.visitChildren(this);
-		}
-	}
-	@SuppressWarnings("CheckReturnValue")
 	public static class EmptyStatContext extends StatementContext {
 		public EmptyStatContext(StatementContext ctx) { copyFrom(ctx); }
 		@Override
@@ -374,6 +351,29 @@ public class CodeParser extends Parser {
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof CodeVisitor ) return ((CodeVisitor<? extends T>)visitor).visitWriteStat(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+	@SuppressWarnings("CheckReturnValue")
+	public static class WhileStatContext extends StatementContext {
+		public ConditionContext condition() {
+			return getRuleContext(ConditionContext.class,0);
+		}
+		public StatementContext statement() {
+			return getRuleContext(StatementContext.class,0);
+		}
+		public WhileStatContext(StatementContext ctx) { copyFrom(ctx); }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof CodeListener ) ((CodeListener)listener).enterWhileStat(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof CodeListener ) ((CodeListener)listener).exitWhileStat(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof CodeVisitor ) return ((CodeVisitor<? extends T>)visitor).visitWhileStat(this);
 			else return visitor.visitChildren(this);
 		}
 	}
@@ -523,7 +523,7 @@ public class CodeParser extends Parser {
 				}
 				break;
 			case T__6:
-				_localctx = new ConditionStatContext(_localctx);
+				_localctx = new IfStatContext(_localctx);
 				enterOuterAlt(_localctx, 7);
 				{
 				setState(62);
@@ -551,7 +551,7 @@ public class CodeParser extends Parser {
 				}
 				break;
 			case T__10:
-				_localctx = new LoopStatContext(_localctx);
+				_localctx = new WhileStatContext(_localctx);
 				enterOuterAlt(_localctx, 8);
 				{
 				setState(71);
@@ -708,127 +708,7 @@ public class CodeParser extends Parser {
 		}
 	}
 	@SuppressWarnings("CheckReturnValue")
-	public static class ParenthesesContext extends ExpressionContext {
-		public ExpressionContext expression() {
-			return getRuleContext(ExpressionContext.class,0);
-		}
-		public ParenthesesContext(ExpressionContext ctx) { copyFrom(ctx); }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof CodeListener ) ((CodeListener)listener).enterParentheses(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof CodeListener ) ((CodeListener)listener).exitParentheses(this);
-		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof CodeVisitor ) return ((CodeVisitor<? extends T>)visitor).visitParentheses(this);
-			else return visitor.visitChildren(this);
-		}
-	}
-	@SuppressWarnings("CheckReturnValue")
-	public static class LogicalNotContext extends ExpressionContext {
-		public ExpressionContext expression() {
-			return getRuleContext(ExpressionContext.class,0);
-		}
-		public LogicalNotContext(ExpressionContext ctx) { copyFrom(ctx); }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof CodeListener ) ((CodeListener)listener).enterLogicalNot(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof CodeListener ) ((CodeListener)listener).exitLogicalNot(this);
-		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof CodeVisitor ) return ((CodeVisitor<? extends T>)visitor).visitLogicalNot(this);
-			else return visitor.visitChildren(this);
-		}
-	}
-	@SuppressWarnings("CheckReturnValue")
-	public static class ComparisonContext extends ExpressionContext {
-		public Token op;
-		public List<ExpressionContext> expression() {
-			return getRuleContexts(ExpressionContext.class);
-		}
-		public ExpressionContext expression(int i) {
-			return getRuleContext(ExpressionContext.class,i);
-		}
-		public ComparisonContext(ExpressionContext ctx) { copyFrom(ctx); }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof CodeListener ) ((CodeListener)listener).enterComparison(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof CodeListener ) ((CodeListener)listener).exitComparison(this);
-		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof CodeVisitor ) return ((CodeVisitor<? extends T>)visitor).visitComparison(this);
-			else return visitor.visitChildren(this);
-		}
-	}
-	@SuppressWarnings("CheckReturnValue")
-	public static class StringContext extends ExpressionContext {
-		public TerminalNode STRING() { return getToken(CodeParser.STRING, 0); }
-		public StringContext(ExpressionContext ctx) { copyFrom(ctx); }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof CodeListener ) ((CodeListener)listener).enterString(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof CodeListener ) ((CodeListener)listener).exitString(this);
-		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof CodeVisitor ) return ((CodeVisitor<? extends T>)visitor).visitString(this);
-			else return visitor.visitChildren(this);
-		}
-	}
-	@SuppressWarnings("CheckReturnValue")
-	public static class BoolContext extends ExpressionContext {
-		public TerminalNode BOOL() { return getToken(CodeParser.BOOL, 0); }
-		public BoolContext(ExpressionContext ctx) { copyFrom(ctx); }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof CodeListener ) ((CodeListener)listener).enterBool(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof CodeListener ) ((CodeListener)listener).exitBool(this);
-		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof CodeVisitor ) return ((CodeVisitor<? extends T>)visitor).visitBool(this);
-			else return visitor.visitChildren(this);
-		}
-	}
-	@SuppressWarnings("CheckReturnValue")
-	public static class VarContext extends ExpressionContext {
-		public VariableContext variable() {
-			return getRuleContext(VariableContext.class,0);
-		}
-		public VarContext(ExpressionContext ctx) { copyFrom(ctx); }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof CodeListener ) ((CodeListener)listener).enterVar(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof CodeListener ) ((CodeListener)listener).exitVar(this);
-		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof CodeVisitor ) return ((CodeVisitor<? extends T>)visitor).visitVar(this);
-			else return visitor.visitChildren(this);
-		}
-	}
-	@SuppressWarnings("CheckReturnValue")
-	public static class AssignmentContext extends ExpressionContext {
+	public static class AssignmentExprContext extends ExpressionContext {
 		public Token op;
 		public VariableContext variable() {
 			return getRuleContext(VariableContext.class,0);
@@ -836,194 +716,326 @@ public class CodeParser extends Parser {
 		public ExpressionContext expression() {
 			return getRuleContext(ExpressionContext.class,0);
 		}
-		public AssignmentContext(ExpressionContext ctx) { copyFrom(ctx); }
+		public AssignmentExprContext(ExpressionContext ctx) { copyFrom(ctx); }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof CodeListener ) ((CodeListener)listener).enterAssignment(this);
+			if ( listener instanceof CodeListener ) ((CodeListener)listener).enterAssignmentExpr(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof CodeListener ) ((CodeListener)listener).exitAssignment(this);
+			if ( listener instanceof CodeListener ) ((CodeListener)listener).exitAssignmentExpr(this);
 		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof CodeVisitor ) return ((CodeVisitor<? extends T>)visitor).visitAssignment(this);
+			if ( visitor instanceof CodeVisitor ) return ((CodeVisitor<? extends T>)visitor).visitAssignmentExpr(this);
 			else return visitor.visitChildren(this);
 		}
 	}
 	@SuppressWarnings("CheckReturnValue")
-	public static class FloatContext extends ExpressionContext {
-		public TerminalNode FLOAT() { return getToken(CodeParser.FLOAT, 0); }
-		public FloatContext(ExpressionContext ctx) { copyFrom(ctx); }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof CodeListener ) ((CodeListener)listener).enterFloat(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof CodeListener ) ((CodeListener)listener).exitFloat(this);
-		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof CodeVisitor ) return ((CodeVisitor<? extends T>)visitor).visitFloat(this);
-			else return visitor.visitChildren(this);
-		}
-	}
-	@SuppressWarnings("CheckReturnValue")
-	public static class IntContext extends ExpressionContext {
+	public static class IntExprContext extends ExpressionContext {
 		public TerminalNode INT() { return getToken(CodeParser.INT, 0); }
-		public IntContext(ExpressionContext ctx) { copyFrom(ctx); }
+		public IntExprContext(ExpressionContext ctx) { copyFrom(ctx); }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof CodeListener ) ((CodeListener)listener).enterInt(this);
+			if ( listener instanceof CodeListener ) ((CodeListener)listener).enterIntExpr(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof CodeListener ) ((CodeListener)listener).exitInt(this);
+			if ( listener instanceof CodeListener ) ((CodeListener)listener).exitIntExpr(this);
 		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof CodeVisitor ) return ((CodeVisitor<? extends T>)visitor).visitInt(this);
+			if ( visitor instanceof CodeVisitor ) return ((CodeVisitor<? extends T>)visitor).visitIntExpr(this);
 			else return visitor.visitChildren(this);
 		}
 	}
 	@SuppressWarnings("CheckReturnValue")
-	public static class LogicalContext extends ExpressionContext {
+	public static class ModuloExprContext extends ExpressionContext {
+		public ExpressionContext left;
 		public Token op;
+		public ExpressionContext right;
 		public List<ExpressionContext> expression() {
 			return getRuleContexts(ExpressionContext.class);
 		}
 		public ExpressionContext expression(int i) {
 			return getRuleContext(ExpressionContext.class,i);
 		}
-		public LogicalContext(ExpressionContext ctx) { copyFrom(ctx); }
+		public ModuloExprContext(ExpressionContext ctx) { copyFrom(ctx); }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof CodeListener ) ((CodeListener)listener).enterLogical(this);
+			if ( listener instanceof CodeListener ) ((CodeListener)listener).enterModuloExpr(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof CodeListener ) ((CodeListener)listener).exitLogical(this);
+			if ( listener instanceof CodeListener ) ((CodeListener)listener).exitModuloExpr(this);
 		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof CodeVisitor ) return ((CodeVisitor<? extends T>)visitor).visitLogical(this);
+			if ( visitor instanceof CodeVisitor ) return ((CodeVisitor<? extends T>)visitor).visitModuloExpr(this);
 			else return visitor.visitChildren(this);
 		}
 	}
 	@SuppressWarnings("CheckReturnValue")
-	public static class ConcatenationContext extends ExpressionContext {
+	public static class ConcatenationExprContext extends ExpressionContext {
+		public ExpressionContext left;
 		public Token op;
+		public ExpressionContext right;
 		public List<ExpressionContext> expression() {
 			return getRuleContexts(ExpressionContext.class);
 		}
 		public ExpressionContext expression(int i) {
 			return getRuleContext(ExpressionContext.class,i);
 		}
-		public ConcatenationContext(ExpressionContext ctx) { copyFrom(ctx); }
+		public ConcatenationExprContext(ExpressionContext ctx) { copyFrom(ctx); }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof CodeListener ) ((CodeListener)listener).enterConcatenation(this);
+			if ( listener instanceof CodeListener ) ((CodeListener)listener).enterConcatenationExpr(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof CodeListener ) ((CodeListener)listener).exitConcatenation(this);
+			if ( listener instanceof CodeListener ) ((CodeListener)listener).exitConcatenationExpr(this);
 		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof CodeVisitor ) return ((CodeVisitor<? extends T>)visitor).visitConcatenation(this);
+			if ( visitor instanceof CodeVisitor ) return ((CodeVisitor<? extends T>)visitor).visitConcatenationExpr(this);
 			else return visitor.visitChildren(this);
 		}
 	}
 	@SuppressWarnings("CheckReturnValue")
-	public static class UnaryMinusContext extends ExpressionContext {
+	public static class LogicalExprContext extends ExpressionContext {
+		public ExpressionContext left;
+		public Token op;
+		public ExpressionContext right;
+		public List<ExpressionContext> expression() {
+			return getRuleContexts(ExpressionContext.class);
+		}
+		public ExpressionContext expression(int i) {
+			return getRuleContext(ExpressionContext.class,i);
+		}
+		public LogicalExprContext(ExpressionContext ctx) { copyFrom(ctx); }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof CodeListener ) ((CodeListener)listener).enterLogicalExpr(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof CodeListener ) ((CodeListener)listener).exitLogicalExpr(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof CodeVisitor ) return ((CodeVisitor<? extends T>)visitor).visitLogicalExpr(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+	@SuppressWarnings("CheckReturnValue")
+	public static class ComparisonExprContext extends ExpressionContext {
+		public ExpressionContext left;
+		public Token op;
+		public ExpressionContext right;
+		public List<ExpressionContext> expression() {
+			return getRuleContexts(ExpressionContext.class);
+		}
+		public ExpressionContext expression(int i) {
+			return getRuleContext(ExpressionContext.class,i);
+		}
+		public ComparisonExprContext(ExpressionContext ctx) { copyFrom(ctx); }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof CodeListener ) ((CodeListener)listener).enterComparisonExpr(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof CodeListener ) ((CodeListener)listener).exitComparisonExpr(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof CodeVisitor ) return ((CodeVisitor<? extends T>)visitor).visitComparisonExpr(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+	@SuppressWarnings("CheckReturnValue")
+	public static class RelationalExprContext extends ExpressionContext {
+		public ExpressionContext left;
+		public Token op;
+		public ExpressionContext right;
+		public List<ExpressionContext> expression() {
+			return getRuleContexts(ExpressionContext.class);
+		}
+		public ExpressionContext expression(int i) {
+			return getRuleContext(ExpressionContext.class,i);
+		}
+		public RelationalExprContext(ExpressionContext ctx) { copyFrom(ctx); }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof CodeListener ) ((CodeListener)listener).enterRelationalExpr(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof CodeListener ) ((CodeListener)listener).exitRelationalExpr(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof CodeVisitor ) return ((CodeVisitor<? extends T>)visitor).visitRelationalExpr(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+	@SuppressWarnings("CheckReturnValue")
+	public static class ParenthesesExprContext extends ExpressionContext {
 		public ExpressionContext expression() {
 			return getRuleContext(ExpressionContext.class,0);
 		}
-		public UnaryMinusContext(ExpressionContext ctx) { copyFrom(ctx); }
+		public ParenthesesExprContext(ExpressionContext ctx) { copyFrom(ctx); }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof CodeListener ) ((CodeListener)listener).enterUnaryMinus(this);
+			if ( listener instanceof CodeListener ) ((CodeListener)listener).enterParenthesesExpr(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof CodeListener ) ((CodeListener)listener).exitUnaryMinus(this);
+			if ( listener instanceof CodeListener ) ((CodeListener)listener).exitParenthesesExpr(this);
 		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof CodeVisitor ) return ((CodeVisitor<? extends T>)visitor).visitUnaryMinus(this);
+			if ( visitor instanceof CodeVisitor ) return ((CodeVisitor<? extends T>)visitor).visitParenthesesExpr(this);
 			else return visitor.visitChildren(this);
 		}
 	}
 	@SuppressWarnings("CheckReturnValue")
-	public static class RelationalContext extends ExpressionContext {
+	public static class StringExprContext extends ExpressionContext {
+		public TerminalNode STRING() { return getToken(CodeParser.STRING, 0); }
+		public StringExprContext(ExpressionContext ctx) { copyFrom(ctx); }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof CodeListener ) ((CodeListener)listener).enterStringExpr(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof CodeListener ) ((CodeListener)listener).exitStringExpr(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof CodeVisitor ) return ((CodeVisitor<? extends T>)visitor).visitStringExpr(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+	@SuppressWarnings("CheckReturnValue")
+	public static class LogicalNotExprContext extends ExpressionContext {
+		public ExpressionContext expression() {
+			return getRuleContext(ExpressionContext.class,0);
+		}
+		public LogicalNotExprContext(ExpressionContext ctx) { copyFrom(ctx); }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof CodeListener ) ((CodeListener)listener).enterLogicalNotExpr(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof CodeListener ) ((CodeListener)listener).exitLogicalNotExpr(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof CodeVisitor ) return ((CodeVisitor<? extends T>)visitor).visitLogicalNotExpr(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+	@SuppressWarnings("CheckReturnValue")
+	public static class VarExprContext extends ExpressionContext {
+		public VariableContext variable() {
+			return getRuleContext(VariableContext.class,0);
+		}
+		public VarExprContext(ExpressionContext ctx) { copyFrom(ctx); }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof CodeListener ) ((CodeListener)listener).enterVarExpr(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof CodeListener ) ((CodeListener)listener).exitVarExpr(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof CodeVisitor ) return ((CodeVisitor<? extends T>)visitor).visitVarExpr(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+	@SuppressWarnings("CheckReturnValue")
+	public static class FloatExprContext extends ExpressionContext {
+		public TerminalNode FLOAT() { return getToken(CodeParser.FLOAT, 0); }
+		public FloatExprContext(ExpressionContext ctx) { copyFrom(ctx); }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof CodeListener ) ((CodeListener)listener).enterFloatExpr(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof CodeListener ) ((CodeListener)listener).exitFloatExpr(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof CodeVisitor ) return ((CodeVisitor<? extends T>)visitor).visitFloatExpr(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+	@SuppressWarnings("CheckReturnValue")
+	public static class UnaryMinusExprContext extends ExpressionContext {
+		public ExpressionContext expression() {
+			return getRuleContext(ExpressionContext.class,0);
+		}
+		public UnaryMinusExprContext(ExpressionContext ctx) { copyFrom(ctx); }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof CodeListener ) ((CodeListener)listener).enterUnaryMinusExpr(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof CodeListener ) ((CodeListener)listener).exitUnaryMinusExpr(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof CodeVisitor ) return ((CodeVisitor<? extends T>)visitor).visitUnaryMinusExpr(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+	@SuppressWarnings("CheckReturnValue")
+	public static class BinaryArithmeticExprContext extends ExpressionContext {
+		public ExpressionContext left;
 		public Token op;
+		public ExpressionContext right;
 		public List<ExpressionContext> expression() {
 			return getRuleContexts(ExpressionContext.class);
 		}
 		public ExpressionContext expression(int i) {
 			return getRuleContext(ExpressionContext.class,i);
 		}
-		public RelationalContext(ExpressionContext ctx) { copyFrom(ctx); }
+		public BinaryArithmeticExprContext(ExpressionContext ctx) { copyFrom(ctx); }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof CodeListener ) ((CodeListener)listener).enterRelational(this);
+			if ( listener instanceof CodeListener ) ((CodeListener)listener).enterBinaryArithmeticExpr(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof CodeListener ) ((CodeListener)listener).exitRelational(this);
+			if ( listener instanceof CodeListener ) ((CodeListener)listener).exitBinaryArithmeticExpr(this);
 		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof CodeVisitor ) return ((CodeVisitor<? extends T>)visitor).visitRelational(this);
+			if ( visitor instanceof CodeVisitor ) return ((CodeVisitor<? extends T>)visitor).visitBinaryArithmeticExpr(this);
 			else return visitor.visitChildren(this);
 		}
 	}
 	@SuppressWarnings("CheckReturnValue")
-	public static class BinaryArithmeticContext extends ExpressionContext {
-		public Token op;
-		public List<ExpressionContext> expression() {
-			return getRuleContexts(ExpressionContext.class);
-		}
-		public ExpressionContext expression(int i) {
-			return getRuleContext(ExpressionContext.class,i);
-		}
-		public BinaryArithmeticContext(ExpressionContext ctx) { copyFrom(ctx); }
+	public static class BoolExprContext extends ExpressionContext {
+		public TerminalNode BOOL() { return getToken(CodeParser.BOOL, 0); }
+		public BoolExprContext(ExpressionContext ctx) { copyFrom(ctx); }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof CodeListener ) ((CodeListener)listener).enterBinaryArithmetic(this);
+			if ( listener instanceof CodeListener ) ((CodeListener)listener).enterBoolExpr(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof CodeListener ) ((CodeListener)listener).exitBinaryArithmetic(this);
+			if ( listener instanceof CodeListener ) ((CodeListener)listener).exitBoolExpr(this);
 		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof CodeVisitor ) return ((CodeVisitor<? extends T>)visitor).visitBinaryArithmetic(this);
-			else return visitor.visitChildren(this);
-		}
-	}
-	@SuppressWarnings("CheckReturnValue")
-	public static class ModuloContext extends ExpressionContext {
-		public Token op;
-		public List<ExpressionContext> expression() {
-			return getRuleContexts(ExpressionContext.class);
-		}
-		public ExpressionContext expression(int i) {
-			return getRuleContext(ExpressionContext.class,i);
-		}
-		public ModuloContext(ExpressionContext ctx) { copyFrom(ctx); }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof CodeListener ) ((CodeListener)listener).enterModulo(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof CodeListener ) ((CodeListener)listener).exitModulo(this);
-		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof CodeVisitor ) return ((CodeVisitor<? extends T>)visitor).visitModulo(this);
+			if ( visitor instanceof CodeVisitor ) return ((CodeVisitor<? extends T>)visitor).visitBoolExpr(this);
 			else return visitor.visitChildren(this);
 		}
 	}
@@ -1049,7 +1061,7 @@ public class CodeParser extends Parser {
 			switch ( getInterpreter().adaptivePredict(_input,7,_ctx) ) {
 			case 1:
 				{
-				_localctx = new VarContext(_localctx);
+				_localctx = new VarExprContext(_localctx);
 				_ctx = _localctx;
 				_prevctx = _localctx;
 
@@ -1059,7 +1071,7 @@ public class CodeParser extends Parser {
 				break;
 			case 2:
 				{
-				_localctx = new IntContext(_localctx);
+				_localctx = new IntExprContext(_localctx);
 				_ctx = _localctx;
 				_prevctx = _localctx;
 				setState(93);
@@ -1068,7 +1080,7 @@ public class CodeParser extends Parser {
 				break;
 			case 3:
 				{
-				_localctx = new FloatContext(_localctx);
+				_localctx = new FloatExprContext(_localctx);
 				_ctx = _localctx;
 				_prevctx = _localctx;
 				setState(94);
@@ -1077,7 +1089,7 @@ public class CodeParser extends Parser {
 				break;
 			case 4:
 				{
-				_localctx = new StringContext(_localctx);
+				_localctx = new StringExprContext(_localctx);
 				_ctx = _localctx;
 				_prevctx = _localctx;
 				setState(95);
@@ -1086,7 +1098,7 @@ public class CodeParser extends Parser {
 				break;
 			case 5:
 				{
-				_localctx = new BoolContext(_localctx);
+				_localctx = new BoolExprContext(_localctx);
 				_ctx = _localctx;
 				_prevctx = _localctx;
 				setState(96);
@@ -1095,7 +1107,7 @@ public class CodeParser extends Parser {
 				break;
 			case 6:
 				{
-				_localctx = new UnaryMinusContext(_localctx);
+				_localctx = new UnaryMinusExprContext(_localctx);
 				_ctx = _localctx;
 				_prevctx = _localctx;
 				setState(97);
@@ -1106,7 +1118,7 @@ public class CodeParser extends Parser {
 				break;
 			case 7:
 				{
-				_localctx = new LogicalNotContext(_localctx);
+				_localctx = new LogicalNotExprContext(_localctx);
 				_ctx = _localctx;
 				_prevctx = _localctx;
 				setState(99);
@@ -1117,20 +1129,20 @@ public class CodeParser extends Parser {
 				break;
 			case 8:
 				{
-				_localctx = new AssignmentContext(_localctx);
+				_localctx = new AssignmentExprContext(_localctx);
 				_ctx = _localctx;
 				_prevctx = _localctx;
 				setState(101);
 				variable();
 				setState(102);
-				((AssignmentContext)_localctx).op = match(T__31);
+				((AssignmentExprContext)_localctx).op = match(T__31);
 				setState(103);
 				expression(2);
 				}
 				break;
 			case 9:
 				{
-				_localctx = new ParenthesesContext(_localctx);
+				_localctx = new ParenthesesExprContext(_localctx);
 				_ctx = _localctx;
 				_prevctx = _localctx;
 				setState(105);
@@ -1156,15 +1168,16 @@ public class CodeParser extends Parser {
 					switch ( getInterpreter().adaptivePredict(_input,8,_ctx) ) {
 					case 1:
 						{
-						_localctx = new BinaryArithmeticContext(new ExpressionContext(_parentctx, _parentState));
+						_localctx = new BinaryArithmeticExprContext(new ExpressionContext(_parentctx, _parentState));
+						((BinaryArithmeticExprContext)_localctx).left = _prevctx;
 						pushNewRecursionContext(_localctx, _startState, RULE_expression);
 						setState(111);
 						if (!(precpred(_ctx, 9))) throw new FailedPredicateException(this, "precpred(_ctx, 9)");
 						setState(112);
-						((BinaryArithmeticContext)_localctx).op = _input.LT(1);
+						((BinaryArithmeticExprContext)_localctx).op = _input.LT(1);
 						_la = _input.LA(1);
 						if ( !((((_la) & ~0x3f) == 0 && ((1L << _la) & 1966080L) != 0)) ) {
-							((BinaryArithmeticContext)_localctx).op = (Token)_errHandler.recoverInline(this);
+							((BinaryArithmeticExprContext)_localctx).op = (Token)_errHandler.recoverInline(this);
 						}
 						else {
 							if ( _input.LA(1)==Token.EOF ) matchedEOF = true;
@@ -1172,44 +1185,47 @@ public class CodeParser extends Parser {
 							consume();
 						}
 						setState(113);
-						expression(10);
+						((BinaryArithmeticExprContext)_localctx).right = expression(10);
 						}
 						break;
 					case 2:
 						{
-						_localctx = new ModuloContext(new ExpressionContext(_parentctx, _parentState));
+						_localctx = new ModuloExprContext(new ExpressionContext(_parentctx, _parentState));
+						((ModuloExprContext)_localctx).left = _prevctx;
 						pushNewRecursionContext(_localctx, _startState, RULE_expression);
 						setState(114);
 						if (!(precpred(_ctx, 8))) throw new FailedPredicateException(this, "precpred(_ctx, 8)");
 						setState(115);
-						((ModuloContext)_localctx).op = match(T__20);
+						((ModuloExprContext)_localctx).op = match(T__20);
 						setState(116);
-						expression(9);
+						((ModuloExprContext)_localctx).right = expression(9);
 						}
 						break;
 					case 3:
 						{
-						_localctx = new ConcatenationContext(new ExpressionContext(_parentctx, _parentState));
+						_localctx = new ConcatenationExprContext(new ExpressionContext(_parentctx, _parentState));
+						((ConcatenationExprContext)_localctx).left = _prevctx;
 						pushNewRecursionContext(_localctx, _startState, RULE_expression);
 						setState(117);
 						if (!(precpred(_ctx, 7))) throw new FailedPredicateException(this, "precpred(_ctx, 7)");
 						setState(118);
-						((ConcatenationContext)_localctx).op = match(T__21);
+						((ConcatenationExprContext)_localctx).op = match(T__21);
 						setState(119);
-						expression(8);
+						((ConcatenationExprContext)_localctx).right = expression(8);
 						}
 						break;
 					case 4:
 						{
-						_localctx = new RelationalContext(new ExpressionContext(_parentctx, _parentState));
+						_localctx = new RelationalExprContext(new ExpressionContext(_parentctx, _parentState));
+						((RelationalExprContext)_localctx).left = _prevctx;
 						pushNewRecursionContext(_localctx, _startState, RULE_expression);
 						setState(120);
 						if (!(precpred(_ctx, 6))) throw new FailedPredicateException(this, "precpred(_ctx, 6)");
 						setState(121);
-						((RelationalContext)_localctx).op = _input.LT(1);
+						((RelationalExprContext)_localctx).op = _input.LT(1);
 						_la = _input.LA(1);
 						if ( !((((_la) & ~0x3f) == 0 && ((1L << _la) & 125829120L) != 0)) ) {
-							((RelationalContext)_localctx).op = (Token)_errHandler.recoverInline(this);
+							((RelationalExprContext)_localctx).op = (Token)_errHandler.recoverInline(this);
 						}
 						else {
 							if ( _input.LA(1)==Token.EOF ) matchedEOF = true;
@@ -1217,20 +1233,21 @@ public class CodeParser extends Parser {
 							consume();
 						}
 						setState(122);
-						expression(7);
+						((RelationalExprContext)_localctx).right = expression(7);
 						}
 						break;
 					case 5:
 						{
-						_localctx = new ComparisonContext(new ExpressionContext(_parentctx, _parentState));
+						_localctx = new ComparisonExprContext(new ExpressionContext(_parentctx, _parentState));
+						((ComparisonExprContext)_localctx).left = _prevctx;
 						pushNewRecursionContext(_localctx, _startState, RULE_expression);
 						setState(123);
 						if (!(precpred(_ctx, 5))) throw new FailedPredicateException(this, "precpred(_ctx, 5)");
 						setState(124);
-						((ComparisonContext)_localctx).op = _input.LT(1);
+						((ComparisonExprContext)_localctx).op = _input.LT(1);
 						_la = _input.LA(1);
 						if ( !(_la==T__26 || _la==T__27) ) {
-							((ComparisonContext)_localctx).op = (Token)_errHandler.recoverInline(this);
+							((ComparisonExprContext)_localctx).op = (Token)_errHandler.recoverInline(this);
 						}
 						else {
 							if ( _input.LA(1)==Token.EOF ) matchedEOF = true;
@@ -1238,20 +1255,21 @@ public class CodeParser extends Parser {
 							consume();
 						}
 						setState(125);
-						expression(6);
+						((ComparisonExprContext)_localctx).right = expression(6);
 						}
 						break;
 					case 6:
 						{
-						_localctx = new LogicalContext(new ExpressionContext(_parentctx, _parentState));
+						_localctx = new LogicalExprContext(new ExpressionContext(_parentctx, _parentState));
+						((LogicalExprContext)_localctx).left = _prevctx;
 						pushNewRecursionContext(_localctx, _startState, RULE_expression);
 						setState(126);
 						if (!(precpred(_ctx, 4))) throw new FailedPredicateException(this, "precpred(_ctx, 4)");
 						setState(127);
-						((LogicalContext)_localctx).op = _input.LT(1);
+						((LogicalExprContext)_localctx).op = _input.LT(1);
 						_la = _input.LA(1);
 						if ( !(_la==T__28 || _la==T__29) ) {
-							((LogicalContext)_localctx).op = (Token)_errHandler.recoverInline(this);
+							((LogicalExprContext)_localctx).op = (Token)_errHandler.recoverInline(this);
 						}
 						else {
 							if ( _input.LA(1)==Token.EOF ) matchedEOF = true;
@@ -1259,7 +1277,7 @@ public class CodeParser extends Parser {
 							consume();
 						}
 						setState(128);
-						expression(5);
+						((LogicalExprContext)_localctx).right = expression(5);
 						}
 						break;
 					}

@@ -21,9 +21,9 @@ public class Expression {
             1 > 2;
             1 <= 2;
             1 >= 2;
-            1 && 2;
-            1 || 2;
-            !1;
+            true && false;
+            true || false;
+            !true;
             -1;
             +1;
             1;

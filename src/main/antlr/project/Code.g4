@@ -10,8 +10,8 @@ statement: ';'                                  # emptyStat
     | 'read' variable (',' variable)* ';'       # readStat
     | 'write' expression (',' expression)* ';'  # writeStat
     | '{' statement* '}'                        # blockStat
-    | 'if' '(' condition ')' statement ('else' statement)?  # conditionStat
-    | 'while' '(' condition ')' statement      # loopStat
+    | 'if' '(' condition ')' statement ('else' statement)?  # ifStat
+    | 'while' '(' condition ')' statement      # whileStat
     | 'do' statement 'while' '(' condition ')' ';'  # doWhileStat
     ;
 
@@ -20,21 +20,21 @@ type: 'int' | 'float' | 'string' | 'bool';
 variable: ID;
 
 /** Expressions */
-expression: variable                             # var
-    | INT                                 # int
-    | FLOAT                                     # float
-    | STRING                                    # string
-    | BOOL                                      # bool
-    | '-' expression                            # unaryMinus
-    | expression op=('+' | '-' | '*' | '/') expression   # binaryArithmetic
-    | expression op='%' expression                 # modulo
-    | expression op='.' expression                 # concatenation
-    | expression op=('<' | '<=' | '>' | '>=') expression   # relational
-    | expression op=('==' | '!=') expression       # comparison
-    | expression op=('&&' | '||') expression       # logical
-    | '!' expression                            # logicalNot
-    | <assoc=right> variable op='=' expression    # assignment
-    | '(' expression ')'                         # parentheses
+expression: variable                             # varExpr
+    | INT                                 # intExpr
+    | FLOAT                                     # floatExpr
+    | STRING                                    # stringExpr
+    | BOOL                                      # boolExpr
+    | '-' expression                            # unaryMinusExpr
+    | left=expression op=('+' | '-' | '*' | '/') right=expression   # binaryArithmeticExpr
+    | left=expression op='%' right=expression                 # moduloExpr
+    | left=expression op='.' right=expression                 # concatenationExpr
+    | left=expression op=('<' | '<=' | '>' | '>=') right=expression   # relationalExpr
+    | left=expression op=('==' | '!=') right=expression       # comparisonExpr
+    | left=expression op=('&&' | '||') right=expression       # logicalExpr
+    | '!' expression                            # logicalNotExpr
+    | <assoc=right> variable op='=' expression    # assignmentExpr
+    | '(' expression ')'                         # parenthesesExpr
     ;
 
 /** Conditions */

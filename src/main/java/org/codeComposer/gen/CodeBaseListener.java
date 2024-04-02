@@ -101,25 +101,25 @@ public class CodeBaseListener implements CodeListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterConditionStat(CodeParser.ConditionStatContext ctx) { }
+	@Override public void enterIfStat(CodeParser.IfStatContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitConditionStat(CodeParser.ConditionStatContext ctx) { }
+	@Override public void exitIfStat(CodeParser.IfStatContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterLoopStat(CodeParser.LoopStatContext ctx) { }
+	@Override public void enterWhileStat(CodeParser.WhileStatContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitLoopStat(CodeParser.LoopStatContext ctx) { }
+	@Override public void exitWhileStat(CodeParser.WhileStatContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -161,181 +161,181 @@ public class CodeBaseListener implements CodeListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterParentheses(CodeParser.ParenthesesContext ctx) { }
+	@Override public void enterAssignmentExpr(CodeParser.AssignmentExprContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitParentheses(CodeParser.ParenthesesContext ctx) { }
+	@Override public void exitAssignmentExpr(CodeParser.AssignmentExprContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterLogicalNot(CodeParser.LogicalNotContext ctx) { }
+	@Override public void enterIntExpr(CodeParser.IntExprContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitLogicalNot(CodeParser.LogicalNotContext ctx) { }
+	@Override public void exitIntExpr(CodeParser.IntExprContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterComparison(CodeParser.ComparisonContext ctx) { }
+	@Override public void enterModuloExpr(CodeParser.ModuloExprContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitComparison(CodeParser.ComparisonContext ctx) { }
+	@Override public void exitModuloExpr(CodeParser.ModuloExprContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterString(CodeParser.StringContext ctx) { }
+	@Override public void enterConcatenationExpr(CodeParser.ConcatenationExprContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitString(CodeParser.StringContext ctx) { }
+	@Override public void exitConcatenationExpr(CodeParser.ConcatenationExprContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterBool(CodeParser.BoolContext ctx) { }
+	@Override public void enterLogicalExpr(CodeParser.LogicalExprContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitBool(CodeParser.BoolContext ctx) { }
+	@Override public void exitLogicalExpr(CodeParser.LogicalExprContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterVar(CodeParser.VarContext ctx) { }
+	@Override public void enterComparisonExpr(CodeParser.ComparisonExprContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitVar(CodeParser.VarContext ctx) { }
+	@Override public void exitComparisonExpr(CodeParser.ComparisonExprContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterAssignment(CodeParser.AssignmentContext ctx) { }
+	@Override public void enterRelationalExpr(CodeParser.RelationalExprContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitAssignment(CodeParser.AssignmentContext ctx) { }
+	@Override public void exitRelationalExpr(CodeParser.RelationalExprContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterFloat(CodeParser.FloatContext ctx) { }
+	@Override public void enterParenthesesExpr(CodeParser.ParenthesesExprContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitFloat(CodeParser.FloatContext ctx) { }
+	@Override public void exitParenthesesExpr(CodeParser.ParenthesesExprContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterInt(CodeParser.IntContext ctx) { }
+	@Override public void enterStringExpr(CodeParser.StringExprContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitInt(CodeParser.IntContext ctx) { }
+	@Override public void exitStringExpr(CodeParser.StringExprContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterLogical(CodeParser.LogicalContext ctx) { }
+	@Override public void enterLogicalNotExpr(CodeParser.LogicalNotExprContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitLogical(CodeParser.LogicalContext ctx) { }
+	@Override public void exitLogicalNotExpr(CodeParser.LogicalNotExprContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterConcatenation(CodeParser.ConcatenationContext ctx) { }
+	@Override public void enterVarExpr(CodeParser.VarExprContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitConcatenation(CodeParser.ConcatenationContext ctx) { }
+	@Override public void exitVarExpr(CodeParser.VarExprContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterUnaryMinus(CodeParser.UnaryMinusContext ctx) { }
+	@Override public void enterFloatExpr(CodeParser.FloatExprContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitUnaryMinus(CodeParser.UnaryMinusContext ctx) { }
+	@Override public void exitFloatExpr(CodeParser.FloatExprContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterRelational(CodeParser.RelationalContext ctx) { }
+	@Override public void enterUnaryMinusExpr(CodeParser.UnaryMinusExprContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitRelational(CodeParser.RelationalContext ctx) { }
+	@Override public void exitUnaryMinusExpr(CodeParser.UnaryMinusExprContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterBinaryArithmetic(CodeParser.BinaryArithmeticContext ctx) { }
+	@Override public void enterBinaryArithmeticExpr(CodeParser.BinaryArithmeticExprContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitBinaryArithmetic(CodeParser.BinaryArithmeticContext ctx) { }
+	@Override public void exitBinaryArithmeticExpr(CodeParser.BinaryArithmeticExprContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterModulo(CodeParser.ModuloContext ctx) { }
+	@Override public void enterBoolExpr(CodeParser.BoolExprContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitModulo(CodeParser.ModuloContext ctx) { }
+	@Override public void exitBoolExpr(CodeParser.BoolExprContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *

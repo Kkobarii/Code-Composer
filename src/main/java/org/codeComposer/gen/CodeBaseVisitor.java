@@ -67,14 +67,14 @@ public class CodeBaseVisitor<T> extends AbstractParseTreeVisitor<T> implements C
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitConditionStat(CodeParser.ConditionStatContext ctx) { return visitChildren(ctx); }
+	@Override public T visitIfStat(CodeParser.IfStatContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitLoopStat(CodeParser.LoopStatContext ctx) { return visitChildren(ctx); }
+	@Override public T visitWhileStat(CodeParser.WhileStatContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -102,105 +102,105 @@ public class CodeBaseVisitor<T> extends AbstractParseTreeVisitor<T> implements C
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitParentheses(CodeParser.ParenthesesContext ctx) { return visitChildren(ctx); }
+	@Override public T visitAssignmentExpr(CodeParser.AssignmentExprContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitLogicalNot(CodeParser.LogicalNotContext ctx) { return visitChildren(ctx); }
+	@Override public T visitIntExpr(CodeParser.IntExprContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitComparison(CodeParser.ComparisonContext ctx) { return visitChildren(ctx); }
+	@Override public T visitModuloExpr(CodeParser.ModuloExprContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitString(CodeParser.StringContext ctx) { return visitChildren(ctx); }
+	@Override public T visitConcatenationExpr(CodeParser.ConcatenationExprContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitBool(CodeParser.BoolContext ctx) { return visitChildren(ctx); }
+	@Override public T visitLogicalExpr(CodeParser.LogicalExprContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitVar(CodeParser.VarContext ctx) { return visitChildren(ctx); }
+	@Override public T visitComparisonExpr(CodeParser.ComparisonExprContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitAssignment(CodeParser.AssignmentContext ctx) { return visitChildren(ctx); }
+	@Override public T visitRelationalExpr(CodeParser.RelationalExprContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitFloat(CodeParser.FloatContext ctx) { return visitChildren(ctx); }
+	@Override public T visitParenthesesExpr(CodeParser.ParenthesesExprContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitInt(CodeParser.IntContext ctx) { return visitChildren(ctx); }
+	@Override public T visitStringExpr(CodeParser.StringExprContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitLogical(CodeParser.LogicalContext ctx) { return visitChildren(ctx); }
+	@Override public T visitLogicalNotExpr(CodeParser.LogicalNotExprContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitConcatenation(CodeParser.ConcatenationContext ctx) { return visitChildren(ctx); }
+	@Override public T visitVarExpr(CodeParser.VarExprContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitUnaryMinus(CodeParser.UnaryMinusContext ctx) { return visitChildren(ctx); }
+	@Override public T visitFloatExpr(CodeParser.FloatExprContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitRelational(CodeParser.RelationalContext ctx) { return visitChildren(ctx); }
+	@Override public T visitUnaryMinusExpr(CodeParser.UnaryMinusExprContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitBinaryArithmetic(CodeParser.BinaryArithmeticContext ctx) { return visitChildren(ctx); }
+	@Override public T visitBinaryArithmeticExpr(CodeParser.BinaryArithmeticExprContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitModulo(CodeParser.ModuloContext ctx) { return visitChildren(ctx); }
+	@Override public T visitBoolExpr(CodeParser.BoolExprContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *

@@ -44,6 +44,14 @@ public class Write {
     }
 
     @Test
+    public void testWriteWord() {
+        String input = """
+            write "ahoj";
+        """;
+        assertTrue(Util.check(input));
+    }
+
+    @Test
     public void testWriteMultipleVariables() {
         String input = """
             int a;
