@@ -1,7 +1,6 @@
 package org.codeComposer.parser;
 
 import lombok.extern.slf4j.Slf4j;
-import org.antlr.v4.runtime.CharStream;
 import org.antlr.v4.runtime.CharStreams;
 import org.antlr.v4.runtime.CommonTokenStream;
 import org.codeComposer.gen.CodeLexer;
@@ -13,17 +12,12 @@ public class Code {
     CodeParser parser = null;
     CodeParser.ProgramContext context = null;
 
-    public boolean parse(String path) {
-        log.info("Reading input file: {}", path);
+    public Code() {
+        TypeErrorHandler.clearErrors();
+    }
 
-        CharStream input = null;
-        try {
-            input = CharStreams.fromFileName(path);
-        } catch (Exception e) {
-            log.error("Error reading file: {}", e.getMessage());
-        }
-
-        CodeLexer lexer = new CodeLexer(input);
+    public boolean parse(String input) {
+        CodeLexer lexer = new CodeLexer(CharStreams.fromString(input));
         CommonTokenStream tokens = new CommonTokenStream(lexer);
 
         parser = new CodeParser(tokens);
@@ -38,6 +32,20 @@ public class Code {
         }
 
         log.info("Parsing successful!");
+        return true;
+    }
+
+    public boolean check() {
+        TypeCheckVisitor visitor = new TypeCheckVisitor();
+        visitor.visit(context);
+
+        if (TypeErrorHandler.hasErrors()) {
+            TypeErrorHandler.logErrors();
+            log.error("Checking failed!");
+            return false;
+        }
+
+        log.info("Checking successful!");
         return true;
     }
 
