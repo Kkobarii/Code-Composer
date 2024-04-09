@@ -4,7 +4,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.codeComposer.gen.CodeBaseVisitor;
 import org.codeComposer.gen.CodeParser;
 import org.codeComposer.parser.error.ErrorHandler;
-import org.codeComposer.parser.error.model.DeclarationError;
 import org.codeComposer.parser.error.model.TypeError;
 
 @Slf4j
@@ -39,7 +38,7 @@ public class TypeCheckVisitor extends CodeBaseVisitor<Type> {
         // put them in symbol table and check for redeclaration
         for (CodeParser.VariableContext variable : ctx.variable()) {
             if (symbolTable.contains(variable.ID().getText())) {
-                ErrorHandler.addError(DeclarationError.of("already declared", variable.ID().getText(), type, ctx, variable.ID().getSymbol()));
+                ErrorHandler.addError(TypeError.of(ctx, variable.getStart(), "Variable %s has already been declared", variable.ID().getText()));
             }
             symbolTable.add(variable.ID().getText(), type);
         }
@@ -50,7 +49,7 @@ public class TypeCheckVisitor extends CodeBaseVisitor<Type> {
     @Override
     public Type visitVariable(CodeParser.VariableContext ctx) {
         if (!symbolTable.contains(ctx.ID().getText())) {
-            ErrorHandler.addError(DeclarationError.of("not declared", ctx.ID().getText(), Type.VOID, ctx, ctx.ID().getSymbol()));
+            ErrorHandler.addError(TypeError.of(ctx, ctx.ID().getSymbol(), "Variable %s has not been declared", ctx.ID().getText()));
             return Type.ERROR;
         }
 
@@ -80,7 +79,7 @@ public class TypeCheckVisitor extends CodeBaseVisitor<Type> {
     public Type visitUnaryMinusExpr(CodeParser.UnaryMinusExprContext ctx) {
         Type type = visit(ctx.expression());
         if (type != Type.INT && type != Type.FLOAT) {
-            ErrorHandler.addError(TypeError.of("unary minus", ctx.expression().getText(), type, ctx, ctx.expression().getStart()));
+            ErrorHandler.addError(TypeError.of(ctx, ctx.expression().getStart(), "Invalid type %s for unary minus", type));
             return Type.ERROR;
         }
         return type;
@@ -97,12 +96,12 @@ public class TypeCheckVisitor extends CodeBaseVisitor<Type> {
 
         // correct types
         if (left != Type.INT && left != Type.FLOAT) {
-            ErrorHandler.addError(TypeError.of("binary arithmetic", ctx.left.getText(), left, ctx, ctx.left.getStart()));
+            ErrorHandler.addError(TypeError.of(ctx, ctx.left.getStart(), "Invalid type %s for binary arithmetic", left));
             return Type.ERROR;
         }
 
         if (right != Type.INT && right != Type.FLOAT) {
-            ErrorHandler.addError(TypeError.of("binary arithmetic", ctx.right.getText(), right, ctx, ctx.right.getStart()));
+            ErrorHandler.addError(TypeError.of(ctx, ctx.right.getStart(), "Invalid type %s for binary arithmetic", right));
             return Type.ERROR;
         }
 
@@ -125,12 +124,12 @@ public class TypeCheckVisitor extends CodeBaseVisitor<Type> {
 
         // correct types
         if (left != Type.INT) {
-            ErrorHandler.addError(TypeError.of("modulo", ctx.left.getText(), left, ctx, ctx.left.getStart()));
+            ErrorHandler.addError(TypeError.of(ctx, ctx.left.getStart(), "Invalid type %s for modulo", left));
             return Type.ERROR;
         }
 
         if (right != Type.INT) {
-            ErrorHandler.addError(TypeError.of("modulo", ctx.right.getText(), right, ctx, ctx.right.getStart()));
+            ErrorHandler.addError(TypeError.of(ctx, ctx.right.getStart(), "Invalid type %s for modulo", right));
             return Type.ERROR;
         }
 
@@ -148,12 +147,12 @@ public class TypeCheckVisitor extends CodeBaseVisitor<Type> {
 
         // correct types
         if (left != Type.STRING) {
-            ErrorHandler.addError(TypeError.of("concatenation", ctx.left.getText(), left, ctx, ctx.left.getStart()));
+            ErrorHandler.addError(TypeError.of(ctx, ctx.left.getStart(), "Invalid type %s for concatenation", left));
             return Type.ERROR;
         }
 
         if (right != Type.STRING) {
-            ErrorHandler.addError(TypeError.of("concatenation", ctx.right.getText(), right, ctx, ctx.right.getStart()));
+            ErrorHandler.addError(TypeError.of(ctx, ctx.right.getStart(), "Invalid type %s for concatenation", right));
             return Type.ERROR;
         }
 
@@ -171,12 +170,12 @@ public class TypeCheckVisitor extends CodeBaseVisitor<Type> {
 
         // correct types
         if (left != Type.INT && left != Type.FLOAT) {
-            ErrorHandler.addError(TypeError.of("relational", ctx.left.getText(), left, ctx, ctx.left.getStart()));
+            ErrorHandler.addError(TypeError.of(ctx, ctx.left.getStart(), "Invalid type %s for relational expression", left));
             return Type.ERROR;
         }
 
         if (right != Type.INT && right != Type.FLOAT) {
-            ErrorHandler.addError(TypeError.of("relational", ctx.right.getText(), right, ctx, ctx.right.getStart()));
+            ErrorHandler.addError(TypeError.of(ctx, ctx.right.getStart(), "Invalid type %s for relational expression", right));
             return Type.ERROR;
         }
 
@@ -194,12 +193,12 @@ public class TypeCheckVisitor extends CodeBaseVisitor<Type> {
 
         // correct types
         if (left != Type.INT && left != Type.FLOAT && left != Type.STRING) {
-            ErrorHandler.addError(TypeError.of("comparison", ctx.left.getText(), left, ctx, ctx.left.getStart()));
+            ErrorHandler.addError(TypeError.of(ctx, ctx.left.getStart(), "Invalid type %s for comparison", left));
             return Type.ERROR;
         }
 
         if (right != Type.INT && right != Type.FLOAT && right != Type.STRING) {
-            ErrorHandler.addError(TypeError.of("comparison", ctx.right.getText(), right, ctx, ctx.right.getStart()));
+            ErrorHandler.addError(TypeError.of(ctx, ctx.right.getStart(), "Invalid type %s for comparison", right));
             return Type.ERROR;
         }
 
@@ -217,12 +216,12 @@ public class TypeCheckVisitor extends CodeBaseVisitor<Type> {
 
         // correct types
         if (left != Type.BOOL) {
-            ErrorHandler.addError(TypeError.of("logical", ctx.left.getText(), left, ctx, ctx.left.getStart()));
+            ErrorHandler.addError(TypeError.of(ctx, ctx.left.getStart(), "Invalid type %s for logical expression", left));
             return Type.ERROR;
         }
 
         if (right != Type.BOOL) {
-            ErrorHandler.addError(TypeError.of("logical", ctx.right.getText(), right, ctx, ctx.right.getStart()));
+            ErrorHandler.addError(TypeError.of(ctx, ctx.right.getStart(), "Invalid type %s for logical expression", right));
             return Type.ERROR;
         }
 
@@ -234,7 +233,7 @@ public class TypeCheckVisitor extends CodeBaseVisitor<Type> {
         Type type = visit(ctx.expression());
 
         if (type != Type.BOOL) {
-            ErrorHandler.addError(TypeError.of("logical not", ctx.expression().getText(), type, ctx, ctx.expression().getStart()));
+            ErrorHandler.addError(TypeError.of(ctx, ctx.expression().getStart(), "Invalid type %s for logical not", type));
             return Type.ERROR;
         }
 
@@ -255,7 +254,7 @@ public class TypeCheckVisitor extends CodeBaseVisitor<Type> {
         }
 
         if (left != right) {
-            ErrorHandler.addError(TypeError.of("assignment", ctx.expression().getText(), right, ctx, ctx.expression().getStart()));
+            ErrorHandler.addError(TypeError.of(ctx, ctx.expression().getStart(), "Invalid type %s for assignment", right));
             return Type.ERROR;
         }
 
@@ -272,10 +271,40 @@ public class TypeCheckVisitor extends CodeBaseVisitor<Type> {
         Type type = visit(ctx.expression());
 
         if (type != Type.BOOL) {
-            ErrorHandler.addError(TypeError.of("condition", ctx.expression().getText(), type, ctx, ctx.expression().getStart()));
+            ErrorHandler.addError(TypeError.of(ctx, ctx.expression().getStart(), "Invalid type %s for condition", type));
             return Type.ERROR;
         }
 
         return type;
+    }
+
+    @Override
+    public Type visitTernaryExpr(CodeParser.TernaryExprContext ctx) {
+        Type condition = visit(ctx.cond);
+        Type left = visit(ctx.ifTrue);
+        Type right = visit(ctx.ifFalse);
+
+        if (condition == Type.ERROR || left == Type.ERROR || right == Type.ERROR) {
+            return Type.ERROR;
+        }
+
+        if (condition != Type.BOOL) {
+            ErrorHandler.addError(TypeError.of(ctx, ctx.cond.getStart(), "Invalid type %s for ternary condition", condition));
+            return Type.ERROR;
+        }
+
+        if (left == Type.FLOAT && right == Type.INT) {
+            return Type.FLOAT;
+        }
+        if (left == Type.INT && right == Type.FLOAT) {
+            return Type.FLOAT;
+        }
+
+        if (left != right) {
+            ErrorHandler.addError(TypeError.of(ctx, ctx.ifFalse.getStart(), "Invalid types %s and %s for ternary ", left, right));
+            return Type.ERROR;
+        }
+
+        return left;
     }
 }

@@ -1,4 +1,4 @@
-// Generated from /home/kkobari/semester_6/PJP/project/src/main/antlr/project/Code.g4 by ANTLR 4.13.1
+// Generated from /home/kkobari/OneDrive/School/semester_6/PJP/project/src/main/antlr/project/Code.g4 by ANTLR 4.13.1
 package org.codeComposer.gen;
 import org.antlr.v4.runtime.tree.ParseTreeListener;
 
@@ -146,18 +146,6 @@ public interface CodeListener extends ParseTreeListener {
 	 */
 	void exitVariable(CodeParser.VariableContext ctx);
 	/**
-	 * Enter a parse tree produced by the {@code logicalNotExpr}
-	 * labeled alternative in {@link CodeParser#expression}.
-	 * @param ctx the parse tree
-	 */
-	void enterLogicalNotExpr(CodeParser.LogicalNotExprContext ctx);
-	/**
-	 * Exit a parse tree produced by the {@code logicalNotExpr}
-	 * labeled alternative in {@link CodeParser#expression}.
-	 * @param ctx the parse tree
-	 */
-	void exitLogicalNotExpr(CodeParser.LogicalNotExprContext ctx);
-	/**
 	 * Enter a parse tree produced by the {@code assignmentExpr}
 	 * labeled alternative in {@link CodeParser#expression}.
 	 * @param ctx the parse tree
@@ -169,18 +157,6 @@ public interface CodeListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitAssignmentExpr(CodeParser.AssignmentExprContext ctx);
-	/**
-	 * Enter a parse tree produced by the {@code variableExpr}
-	 * labeled alternative in {@link CodeParser#expression}.
-	 * @param ctx the parse tree
-	 */
-	void enterVariableExpr(CodeParser.VariableExprContext ctx);
-	/**
-	 * Exit a parse tree produced by the {@code variableExpr}
-	 * labeled alternative in {@link CodeParser#expression}.
-	 * @param ctx the parse tree
-	 */
-	void exitVariableExpr(CodeParser.VariableExprContext ctx);
 	/**
 	 * Enter a parse tree produced by the {@code moduloExpr}
 	 * labeled alternative in {@link CodeParser#expression}.
@@ -194,18 +170,6 @@ public interface CodeListener extends ParseTreeListener {
 	 */
 	void exitModuloExpr(CodeParser.ModuloExprContext ctx);
 	/**
-	 * Enter a parse tree produced by the {@code unaryMinusExpr}
-	 * labeled alternative in {@link CodeParser#expression}.
-	 * @param ctx the parse tree
-	 */
-	void enterUnaryMinusExpr(CodeParser.UnaryMinusExprContext ctx);
-	/**
-	 * Exit a parse tree produced by the {@code unaryMinusExpr}
-	 * labeled alternative in {@link CodeParser#expression}.
-	 * @param ctx the parse tree
-	 */
-	void exitUnaryMinusExpr(CodeParser.UnaryMinusExprContext ctx);
-	/**
 	 * Enter a parse tree produced by the {@code concatenationExpr}
 	 * labeled alternative in {@link CodeParser#expression}.
 	 * @param ctx the parse tree
@@ -217,30 +181,6 @@ public interface CodeListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitConcatenationExpr(CodeParser.ConcatenationExprContext ctx);
-	/**
-	 * Enter a parse tree produced by the {@code literalExpr}
-	 * labeled alternative in {@link CodeParser#expression}.
-	 * @param ctx the parse tree
-	 */
-	void enterLiteralExpr(CodeParser.LiteralExprContext ctx);
-	/**
-	 * Exit a parse tree produced by the {@code literalExpr}
-	 * labeled alternative in {@link CodeParser#expression}.
-	 * @param ctx the parse tree
-	 */
-	void exitLiteralExpr(CodeParser.LiteralExprContext ctx);
-	/**
-	 * Enter a parse tree produced by the {@code binaryArithmeticExpr}
-	 * labeled alternative in {@link CodeParser#expression}.
-	 * @param ctx the parse tree
-	 */
-	void enterBinaryArithmeticExpr(CodeParser.BinaryArithmeticExprContext ctx);
-	/**
-	 * Exit a parse tree produced by the {@code binaryArithmeticExpr}
-	 * labeled alternative in {@link CodeParser#expression}.
-	 * @param ctx the parse tree
-	 */
-	void exitBinaryArithmeticExpr(CodeParser.BinaryArithmeticExprContext ctx);
 	/**
 	 * Enter a parse tree produced by the {@code logicalExpr}
 	 * labeled alternative in {@link CodeParser#expression}.
@@ -289,6 +229,78 @@ public interface CodeListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitParenthesesExpr(CodeParser.ParenthesesExprContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code logicalNotExpr}
+	 * labeled alternative in {@link CodeParser#expression}.
+	 * @param ctx the parse tree
+	 */
+	void enterLogicalNotExpr(CodeParser.LogicalNotExprContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code logicalNotExpr}
+	 * labeled alternative in {@link CodeParser#expression}.
+	 * @param ctx the parse tree
+	 */
+	void exitLogicalNotExpr(CodeParser.LogicalNotExprContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code variableExpr}
+	 * labeled alternative in {@link CodeParser#expression}.
+	 * @param ctx the parse tree
+	 */
+	void enterVariableExpr(CodeParser.VariableExprContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code variableExpr}
+	 * labeled alternative in {@link CodeParser#expression}.
+	 * @param ctx the parse tree
+	 */
+	void exitVariableExpr(CodeParser.VariableExprContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code unaryMinusExpr}
+	 * labeled alternative in {@link CodeParser#expression}.
+	 * @param ctx the parse tree
+	 */
+	void enterUnaryMinusExpr(CodeParser.UnaryMinusExprContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code unaryMinusExpr}
+	 * labeled alternative in {@link CodeParser#expression}.
+	 * @param ctx the parse tree
+	 */
+	void exitUnaryMinusExpr(CodeParser.UnaryMinusExprContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code ternaryExpr}
+	 * labeled alternative in {@link CodeParser#expression}.
+	 * @param ctx the parse tree
+	 */
+	void enterTernaryExpr(CodeParser.TernaryExprContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code ternaryExpr}
+	 * labeled alternative in {@link CodeParser#expression}.
+	 * @param ctx the parse tree
+	 */
+	void exitTernaryExpr(CodeParser.TernaryExprContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code literalExpr}
+	 * labeled alternative in {@link CodeParser#expression}.
+	 * @param ctx the parse tree
+	 */
+	void enterLiteralExpr(CodeParser.LiteralExprContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code literalExpr}
+	 * labeled alternative in {@link CodeParser#expression}.
+	 * @param ctx the parse tree
+	 */
+	void exitLiteralExpr(CodeParser.LiteralExprContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code binaryArithmeticExpr}
+	 * labeled alternative in {@link CodeParser#expression}.
+	 * @param ctx the parse tree
+	 */
+	void enterBinaryArithmeticExpr(CodeParser.BinaryArithmeticExprContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code binaryArithmeticExpr}
+	 * labeled alternative in {@link CodeParser#expression}.
+	 * @param ctx the parse tree
+	 */
+	void exitBinaryArithmeticExpr(CodeParser.BinaryArithmeticExprContext ctx);
 	/**
 	 * Enter a parse tree produced by the {@code cond}
 	 * labeled alternative in {@link CodeParser#condition}.

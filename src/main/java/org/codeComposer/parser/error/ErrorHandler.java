@@ -35,7 +35,8 @@ public class ErrorHandler {
 
     public static void logErrors() {
         for (Error error : getInstance().errors) {
-            Arrays.stream(error.getMessage().split("\n")).forEach(log::error);
+            String message = error.getMessage().replace(".num.", String.valueOf(getInstance().errors.indexOf(error) + 1));
+            Arrays.stream(message.split("\n")).forEach(log::error);
         }
     }
 }

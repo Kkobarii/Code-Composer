@@ -10,36 +10,27 @@ public class TypeError implements Error {
 
     private final String message;
 
-    public TypeError(String sender, String variable, Type type, ParserRuleContext ctx, Token token) {
+    public TypeError(ParserRuleContext ctx, Token token, String error, Object... args) {
+            int lineNum = ctx.getStart().getLine();
+            int charPos = 0;
 
-        int linePosition = ctx.getStart().getLine();
-        int charPositionInLine = token.getCharPositionInLine();
+            if (token != null) {
+                charPos = token.getCharPositionInLine();
+            } else {
+                charPos = ctx.getStart().getCharPositionInLine();
+            }
 
-        StringBuilder sb = new StringBuilder();
-        sb.append("TYPE ERROR at ");
-        sb.append(linePosition);
-        sb.append(":");
-        sb.append(charPositionInLine);
-        sb.append(" - ");
-        sb.append("Invalid type for ");
-        sb.append(sender);
-        sb.append(" '");
-        sb.append(variable);
-        sb.append("' (");
-        sb.append(type);
-        sb.append(")");
-        sb.append("\n");
+            String line = ctx.getStart().getInputStream().toString().split("\n")[lineNum - 1];
+            String message = error.formatted(args);
 
-        sb.append(ctx.getText());
-        sb.append("\n");
-        sb.append(" ".repeat(Math.max(0, charPositionInLine)));
-        sb.append("^");
-        sb.append("\n");
+            this.message = """
+                    (.num.). Type error at line %d:%d! %s
+                    |  - Statement: %s
+                    |               %s
+                    """.formatted(lineNum, charPos, message, line, " ".repeat(charPos) + "^");
+        }
 
-        this.message = sb.toString();
-    }
-
-    public static TypeError of(String sender, String variable, Type type, ParserRuleContext ctx, Token token) {
-        return new TypeError(sender, variable, type, ctx, token);
-    }
+        public static TypeError of(ParserRuleContext ctx, Token token, String error, Object... args){
+            return new TypeError(ctx, token, error, args);
+        }
 }

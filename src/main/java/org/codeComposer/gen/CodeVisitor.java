@@ -1,4 +1,4 @@
-// Generated from /home/kkobari/semester_6/PJP/project/src/main/antlr/project/Code.g4 by ANTLR 4.13.1
+// Generated from /home/kkobari/OneDrive/School/semester_6/PJP/project/src/main/antlr/project/Code.g4 by ANTLR 4.13.1
 package org.codeComposer.gen;
 import org.antlr.v4.runtime.tree.ParseTreeVisitor;
 
@@ -92,26 +92,12 @@ public interface CodeVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitVariable(CodeParser.VariableContext ctx);
 	/**
-	 * Visit a parse tree produced by the {@code logicalNotExpr}
-	 * labeled alternative in {@link CodeParser#expression}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitLogicalNotExpr(CodeParser.LogicalNotExprContext ctx);
-	/**
 	 * Visit a parse tree produced by the {@code assignmentExpr}
 	 * labeled alternative in {@link CodeParser#expression}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
 	T visitAssignmentExpr(CodeParser.AssignmentExprContext ctx);
-	/**
-	 * Visit a parse tree produced by the {@code variableExpr}
-	 * labeled alternative in {@link CodeParser#expression}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitVariableExpr(CodeParser.VariableExprContext ctx);
 	/**
 	 * Visit a parse tree produced by the {@code moduloExpr}
 	 * labeled alternative in {@link CodeParser#expression}.
@@ -120,33 +106,12 @@ public interface CodeVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitModuloExpr(CodeParser.ModuloExprContext ctx);
 	/**
-	 * Visit a parse tree produced by the {@code unaryMinusExpr}
-	 * labeled alternative in {@link CodeParser#expression}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitUnaryMinusExpr(CodeParser.UnaryMinusExprContext ctx);
-	/**
 	 * Visit a parse tree produced by the {@code concatenationExpr}
 	 * labeled alternative in {@link CodeParser#expression}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
 	T visitConcatenationExpr(CodeParser.ConcatenationExprContext ctx);
-	/**
-	 * Visit a parse tree produced by the {@code literalExpr}
-	 * labeled alternative in {@link CodeParser#expression}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitLiteralExpr(CodeParser.LiteralExprContext ctx);
-	/**
-	 * Visit a parse tree produced by the {@code binaryArithmeticExpr}
-	 * labeled alternative in {@link CodeParser#expression}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitBinaryArithmeticExpr(CodeParser.BinaryArithmeticExprContext ctx);
 	/**
 	 * Visit a parse tree produced by the {@code logicalExpr}
 	 * labeled alternative in {@link CodeParser#expression}.
@@ -175,6 +140,48 @@ public interface CodeVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitParenthesesExpr(CodeParser.ParenthesesExprContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code logicalNotExpr}
+	 * labeled alternative in {@link CodeParser#expression}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitLogicalNotExpr(CodeParser.LogicalNotExprContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code variableExpr}
+	 * labeled alternative in {@link CodeParser#expression}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitVariableExpr(CodeParser.VariableExprContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code unaryMinusExpr}
+	 * labeled alternative in {@link CodeParser#expression}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitUnaryMinusExpr(CodeParser.UnaryMinusExprContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code ternaryExpr}
+	 * labeled alternative in {@link CodeParser#expression}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitTernaryExpr(CodeParser.TernaryExprContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code literalExpr}
+	 * labeled alternative in {@link CodeParser#expression}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitLiteralExpr(CodeParser.LiteralExprContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code binaryArithmeticExpr}
+	 * labeled alternative in {@link CodeParser#expression}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitBinaryArithmeticExpr(CodeParser.BinaryArithmeticExprContext ctx);
 	/**
 	 * Visit a parse tree produced by the {@code cond}
 	 * labeled alternative in {@link CodeParser#condition}.

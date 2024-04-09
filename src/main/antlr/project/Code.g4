@@ -32,6 +32,7 @@ expression
     | left=expression op=('==' | '!=') right=expression             # comparisonExpr
     | left=expression op=('&&' | '||') right=expression             # logicalExpr
     | '!' expression                                                # logicalNotExpr
+    | cond=expression '?' ifTrue=expression ':' ifFalse=expression  # ternaryExpr
     | <assoc=right> variable op='=' expression                      # assignmentExpr
     | '(' expression ')'                                            # parenthesesExpr
     ;
