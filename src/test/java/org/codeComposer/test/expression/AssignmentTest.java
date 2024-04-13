@@ -14,7 +14,14 @@ public class AssignmentTest {
             int a;
             a = 5;
         """;
-        assertTrue(Util.check(input));
+        String output = """
+            push I 0
+            save a
+            push I 5
+            save a
+            pop
+        """;
+        assertTrue(Util.compile(input, output));
     }
 
     @Test
@@ -23,7 +30,14 @@ public class AssignmentTest {
             float a;
             a = 5.0;
         """;
-        assertTrue(Util.check(input));
+        String output = """
+            push F 0.0
+            save a
+            push F 5.0
+            save a
+            pop
+        """;
+        assertTrue(Util.compile(input, output));
     }
 
     @Test
@@ -32,7 +46,14 @@ public class AssignmentTest {
             string a;
             a = "hello";
         """;
-        assertTrue(Util.check(input));
+        String output = """
+            push S ""
+            save a
+            push S "hello"
+            save a
+            pop
+        """;
+        assertTrue(Util.compile(input, output));
     }
 
     @Test
@@ -41,7 +62,34 @@ public class AssignmentTest {
             bool a;
             a = true;
         """;
-        assertTrue(Util.check(input));
+        String output = """
+            push B false
+            save a
+            push B true
+            save a
+            pop
+        """;
+        assertTrue(Util.compile(input, output));
+    }
+
+    @Test
+    public void testRecast() {
+        String input = """
+            float a;
+            int b;
+            a = b;
+        """;
+        String output = """
+            push F 0.0
+            save a
+            push I 0
+            save b
+            load b
+            itof
+            save a
+            pop
+        """;
+        assertTrue(Util.compile(input, output));
     }
 
     @Test

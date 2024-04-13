@@ -15,7 +15,16 @@ public class WhileTest {
                 int a;
             }
         """;
-        assertTrue(Util.check(input));
+        String output = """
+            label whileStart_0
+            push B true
+            fjmp whileEnd_0
+            push I 0
+            save a
+            jmp whileStart_0
+            label whileEnd_0
+        """;
+        assertTrue(Util.compile(input, output));
     }
 
     @Test
@@ -26,7 +35,23 @@ public class WhileTest {
                 a = a + 1;
             }
         """;
-        assertTrue(Util.check(input));
+        String output = """
+            push I 0
+            save a
+            label whileStart_0
+            load a
+            push I 10
+            lt
+            fjmp whileEnd_0
+            load a
+            push I 1
+            add
+            save a
+            pop
+            jmp whileStart_0
+            label whileEnd_0
+        """;
+        assertTrue(Util.compile(input, output));
     }
 
     @Test
@@ -64,7 +89,18 @@ public class WhileTest {
             int a;
             while (a < 10) {}
         """;
-        assertTrue(Util.check(input));
+        String output = """
+            push I 0
+            save a
+            label whileStart_0
+            load a
+            push I 10
+            lt
+            fjmp whileEnd_0
+            jmp whileStart_0
+            label whileEnd_0
+        """;
+        assertTrue(Util.compile(input, output));
     }
 
     @Test

@@ -18,7 +18,32 @@ public class TernaryTest {
             b = 2;
             c = (a > b ? a : b);
         """;
-        assertTrue(Util.check(input));
+        String output = """
+            push I 0
+            save a
+            push I 0
+            save b
+            push I 0
+            save c
+            push I 1
+            save a
+            pop
+            push I 2
+            save b
+            pop
+            load a
+            load b
+            gt
+            fjmp ternaryFalse_0
+            load a
+            jmp ternaryEnd_0
+            label ternaryFalse_0
+            load b
+            label ternaryEnd_0
+            save c
+            pop
+        """;
+        assertTrue(Util.compile(input, output));
     }
 
     @Test
@@ -31,7 +56,32 @@ public class TernaryTest {
             b = 2;
             c = a > b ? a : b;
         """;
-        assertTrue(Util.check(input));
+        String output = """
+            push I 0
+            save a
+            push I 0
+            save b
+            push I 0
+            save c
+            push I 1
+            save a
+            pop
+            push I 2
+            save b
+            pop
+            load a
+            load b
+            gt
+            fjmp ternaryFalse_0
+            load a
+            jmp ternaryEnd_0
+            label ternaryFalse_0
+            load b
+            label ternaryEnd_0
+            save c
+            pop
+        """;
+        assertTrue(Util.compile(input, output));
     }
 
     @Test
@@ -44,7 +94,34 @@ public class TernaryTest {
             b = 2.0;
             c = (a > b ? a : b);
         """;
-        assertTrue(Util.check(input));
+        String output = """
+            push I 0
+            save a
+            push F 0.0
+            save b
+            push F 0.0
+            save c
+            push I 1
+            save a
+            pop
+            push F 2.0
+            save b
+            pop
+            load a
+            itof
+            load b
+            gt
+            fjmp ternaryFalse_0
+            load a
+            itof
+            jmp ternaryEnd_0
+            label ternaryFalse_0
+            load b
+            label ternaryEnd_0
+            save c
+            pop
+        """;
+        assertTrue(Util.compile(input, output));
     }
 
     @Test

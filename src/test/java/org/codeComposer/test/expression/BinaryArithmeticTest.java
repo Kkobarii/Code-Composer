@@ -13,7 +13,13 @@ public class BinaryArithmeticTest {
         String input = """
             2 + 2;
         """;
-        assertTrue(Util.check(input));
+        String output = """
+            push I 2
+            push I 2
+            add
+            pop
+        """;
+        assertTrue(Util.compile(input, output));
     }
 
     @Test
@@ -21,7 +27,13 @@ public class BinaryArithmeticTest {
         String input = """
             2 - 2;
         """;
-        assertTrue(Util.check(input));
+        String output = """
+            push I 2
+            push I 2
+            sub
+            pop
+        """;
+        assertTrue(Util.compile(input, output));
     }
 
     @Test
@@ -29,7 +41,13 @@ public class BinaryArithmeticTest {
         String input = """
             2 * 2;
         """;
-        assertTrue(Util.check(input));
+        String output = """
+            push I 2
+            push I 2
+            mul
+            pop
+        """;
+        assertTrue(Util.compile(input, output));
     }
 
     @Test
@@ -37,7 +55,13 @@ public class BinaryArithmeticTest {
         String input = """
             2 / 2;
         """;
-        assertTrue(Util.check(input));
+        String output = """
+            push I 2
+            push I 2
+            div
+            pop
+        """;
+        assertTrue(Util.compile(input, output));
     }
 
     @Test
@@ -47,7 +71,17 @@ public class BinaryArithmeticTest {
             int b;
             a + b;
         """;
-        assertTrue(Util.check(input));
+        String output = """
+            push I 0
+            save a
+            push I 0
+            save b
+            load a
+            load b
+            add
+            pop
+        """;
+        assertTrue(Util.compile(input, output));
     }
 
     @Test
@@ -57,7 +91,17 @@ public class BinaryArithmeticTest {
             float b;
             a + b;
         """;
-        assertTrue(Util.check(input));
+        String output = """
+            push F 0.0
+            save a
+            push F 0.0
+            save b
+            load a
+            load b
+            add
+            pop
+        """;
+        assertTrue(Util.compile(input, output));
     }
 
     @Test
@@ -67,7 +111,39 @@ public class BinaryArithmeticTest {
             float b;
             a + b;
         """;
-        assertTrue(Util.check(input));
+        String output = """
+            push I 0
+            save a
+            push F 0.0
+            save b
+            load a
+            itof
+            load b
+            add
+            pop
+        """;
+        assertTrue(Util.compile(input, output));
+    }
+
+    @Test
+    public void testRecastOtherWay() {
+        String input = """
+            float a;
+            int b;
+            a + b;
+        """;
+        String output = """
+            push F 0.0
+            save a
+            push I 0
+            save b
+            load a
+            load b
+            itof
+            add
+            pop
+        """;
+        assertTrue(Util.compile(input, output));
     }
 
     @Test

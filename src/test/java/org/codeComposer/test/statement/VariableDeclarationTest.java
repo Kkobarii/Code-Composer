@@ -16,7 +16,21 @@ public class VariableDeclarationTest {
             float e;
             string chachar;
         """;
-        assertTrue(Util.check(input));
+        String output = """
+            push I 0
+            save a
+            push I 0
+            save b
+            push I 0
+            save c
+            push B false
+            save d
+            push F 0.0
+            save e
+            push S ""
+            save chachar
+        """;
+        assertTrue(Util.compile(input, output));
     }
 
     @Test

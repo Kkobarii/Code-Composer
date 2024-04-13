@@ -13,7 +13,12 @@ public class LogicNotTest {
         String input = """
             !false;
         """;
-        assertTrue(Util.check(input));
+        String output = """
+            push B false
+            not
+            pop
+        """;
+        assertTrue(Util.compile(input, output));
     }
 
     @Test
@@ -49,6 +54,13 @@ public class LogicNotTest {
             bool a;
             !a;
         """;
-        assertTrue(Util.check(input));
+        String output = """
+            push B false
+            save a
+            load a
+            not
+            pop
+        """;
+        assertTrue(Util.compile(input, output));
     }
 }

@@ -32,6 +32,67 @@ public class ExpressionTest {
             true;
             false;
         """;
-        assertTrue(Util.check(input));
+        String output = """
+            push I 1
+            push I 2
+            add
+            pop
+            push I 1
+            push I 2
+            sub
+            pop
+            push I 1
+            push I 2
+            mul
+            pop
+            push I 1
+            push I 2
+            div
+            pop
+            push I 1
+            push I 2
+            mod
+            pop
+            push I 1
+            push I 2
+            eq
+            pop
+            push I 1
+            push I 2
+            eq
+            not
+            pop
+            push I 1
+            push I 2
+            lt
+            pop
+            push I 1
+            push I 2
+            gt
+            pop
+            push I 1
+            push I 2
+            le
+            pop
+            push I 1
+            push I 2
+            ge
+            pop
+            push B true
+            push B false
+            and
+            pop
+            push B true
+            push B false
+            or
+            pop
+            push B true
+            not
+            pop
+            push I 1
+            uminus
+            pop
+                """;
+        assertTrue(Util.compile(input, output));
     }
 }

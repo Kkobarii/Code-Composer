@@ -3,7 +3,6 @@ package org.codeComposer.parser.error.model;
 import lombok.Getter;
 import org.antlr.v4.runtime.ParserRuleContext;
 import org.antlr.v4.runtime.Token;
-import org.codeComposer.parser.Type;
 
 @Getter
 public class TypeError implements Error {

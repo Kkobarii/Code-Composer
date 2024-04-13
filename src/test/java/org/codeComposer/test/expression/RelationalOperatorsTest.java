@@ -13,7 +13,13 @@ public class RelationalOperatorsTest {
         String input = """
             1 > 2;
         """;
-        assertTrue(Util.check(input));
+        String output = """
+            push I 1
+            push I 2
+            gt
+            pop
+        """;
+        assertTrue(Util.compile(input, output));
     }
 
     @Test
@@ -21,7 +27,13 @@ public class RelationalOperatorsTest {
         String input = """
             1 >= 2;
         """;
-        assertTrue(Util.check(input));
+        String output = """
+            push I 1
+            push I 2
+            ge
+            pop
+        """;
+        assertTrue(Util.compile(input, output));
     }
 
     @Test
@@ -29,7 +41,13 @@ public class RelationalOperatorsTest {
         String input = """
             1 < 2;
         """;
-        assertTrue(Util.check(input));
+        String output = """
+            push I 1
+            push I 2
+            lt
+            pop
+        """;
+        assertTrue(Util.compile(input, output));
     }
 
     @Test
@@ -37,7 +55,13 @@ public class RelationalOperatorsTest {
         String input = """
             1 <= 2;
         """;
-        assertTrue(Util.check(input));
+        String output = """
+            push I 1
+            push I 2
+            le
+            pop
+        """;
+        assertTrue(Util.compile(input, output));
     }
 
     @Test
@@ -47,7 +71,17 @@ public class RelationalOperatorsTest {
             int b;
             a > b;
         """;
-        assertTrue(Util.check(input));
+        String output = """
+            push I 0
+            save a
+            push I 0
+            save b
+            load a
+            load b
+            gt
+            pop
+        """;
+        assertTrue(Util.compile(input, output));
     }
 
     @Test
@@ -57,7 +91,17 @@ public class RelationalOperatorsTest {
             float b;
             a > b;
         """;
-        assertTrue(Util.check(input));
+        String output = """
+            push F 0.0
+            save a
+            push F 0.0
+            save b
+            load a
+            load b
+            gt
+            pop
+        """;
+        assertTrue(Util.compile(input, output));
     }
 
     @Test
@@ -78,5 +122,26 @@ public class RelationalOperatorsTest {
             a > b;
         """;
         assertFalse(Util.check(input));
+    }
+
+    @Test
+    public void testRecast() {
+        String input = """
+            float a;
+            int b;
+            a > b;
+        """;
+        String output = """
+            push F 0.0
+            save a
+            push I 0
+            save b
+            load a
+            load b
+            itof
+            gt
+            pop
+        """;
+        assertTrue(Util.compile(input, output));
     }
 }

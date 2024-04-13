@@ -1,4 +1,4 @@
-package org.codeComposer.parser;
+package org.codeComposer.parser.typeChecker;
 
 import lombok.extern.slf4j.Slf4j;
 import org.codeComposer.gen.CodeBaseVisitor;
@@ -7,40 +7,20 @@ import org.codeComposer.parser.error.ErrorHandler;
 import org.codeComposer.parser.error.model.TypeError;
 
 @Slf4j
-public class TypeCheckVisitor extends CodeBaseVisitor<Type> {
+public class CodeTypeChecker extends CodeBaseVisitor<Type> {
 
-    private SymbolTable symbolTable = new SymbolTable();
-
-    private Type mapType(String type) {
-        return switch (type) {
-            case "int" -> Type.INT;
-            case "float" -> Type.FLOAT;
-            case "string" -> Type.STRING;
-            case "bool" -> Type.BOOL;
-            default -> Type.VOID;
-        };
-    }
-
-    private Object mapDefaultValue(Type type) {
-        return switch (type) {
-            case INT -> 0;
-            case FLOAT -> 0.0;
-            case STRING -> "";
-            case BOOL -> false;
-            default -> null;
-        };
-    }
+    private final SymbolTable symbolTable = new SymbolTable();
 
     @Override
     public Type visitVarDeclStat(CodeParser.VarDeclStatContext ctx) {
-        Type type = mapType(ctx.type().getText());
+        Type type = Type.mapType(ctx.type().getText());
 
         // put them in symbol table and check for redeclaration
         for (CodeParser.VariableContext variable : ctx.variable()) {
             if (symbolTable.contains(variable.ID().getText())) {
                 ErrorHandler.addError(TypeError.of(ctx, variable.getStart(), "Variable %s has already been declared", variable.ID().getText()));
             }
-            symbolTable.add(variable.ID().getText(), type);
+            symbolTable.put(variable.ID().getText(), type);
         }
 
         return type;

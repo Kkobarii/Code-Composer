@@ -13,7 +13,13 @@ public class WriteTest {
             int a;
             write a;
         """;
-        assertTrue(Util.check(input));
+        String output = """
+            push I 0
+            save a
+            load a
+            print 1
+        """;
+        assertTrue(Util.compile(input, output));
     }
 
     @Test
@@ -22,7 +28,13 @@ public class WriteTest {
             float a;
             write a;
         """;
-        assertTrue(Util.check(input));
+        String output = """
+            push F 0.0
+            save a
+            load a
+            print 1
+        """;
+        assertTrue(Util.compile(input, output));
     }
 
     @Test
@@ -31,7 +43,13 @@ public class WriteTest {
             string a;
             write a;
         """;
-        assertTrue(Util.check(input));
+        String output = """
+            push S ""
+            save a
+            load a
+            print 1
+        """;
+        assertTrue(Util.compile(input, output));
     }
 
     @Test
@@ -40,7 +58,13 @@ public class WriteTest {
             bool a;
             write a;
         """;
-        assertTrue(Util.check(input));
+        String output = """
+            push B false
+            save a
+            load a
+            print 1
+        """;
+        assertTrue(Util.compile(input, output));
     }
 
     @Test
@@ -48,7 +72,11 @@ public class WriteTest {
         String input = """
             write "ahoj";
         """;
-        assertTrue(Util.check(input));
+        String output = """
+            push S "ahoj"
+            print 1
+        """;
+        assertTrue(Util.compile(input, output));
     }
 
     @Test
@@ -59,6 +87,21 @@ public class WriteTest {
             string c;
             bool d;
             write a, b, c, d;
+        """;
+        String output = """
+            push I 0
+            save a
+            push F 0.0
+            save b
+            push S ""
+            save c
+            push B false
+            save d
+            load a
+            load b
+            load c
+            load d
+            print 4
         """;
         assertTrue(Util.check(input));
     }

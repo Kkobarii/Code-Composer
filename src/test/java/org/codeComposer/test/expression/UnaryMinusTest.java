@@ -22,7 +22,14 @@ public class UnaryMinusTest {
             int a;
             -a;
         """;
-        assertTrue(Util.check(input));
+        String output = """
+            push I 0
+            save a
+            load a
+            uminus
+            pop
+        """;
+        assertTrue(Util.compile(input, output));
     }
 
     @Test
@@ -31,7 +38,14 @@ public class UnaryMinusTest {
             float a;
             -a;
         """;
-        assertTrue(Util.check(input));
+        String output = """
+            push F 0.0
+            save a
+            load a
+            uminus
+            pop
+        """;
+        assertTrue(Util.compile(input, output));
     }
 
     @Test

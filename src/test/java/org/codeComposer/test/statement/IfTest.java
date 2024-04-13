@@ -15,7 +15,14 @@ public class IfTest {
                 int a;
             }
         """;
-        assertTrue(Util.check(input));
+        String output = """
+            push B true
+            fjmp ifFalse_0
+            push I 0
+            save a
+            label ifFalse_0
+        """;
+        assertTrue(Util.compile(input, output));
     }
 
     @Test
@@ -27,7 +34,18 @@ public class IfTest {
                 float b;
             }
         """;
-        assertTrue(Util.check(input));
+        String output = """
+            push B true
+            fjmp ifFalse_0
+            push I 0
+            save a
+            jmp ifEnd_0
+            label ifFalse_0
+            push F 0.0
+            save b
+            label ifEnd_0
+        """;
+        assertTrue(Util.compile(input, output));
     }
 
     @Test
@@ -39,7 +57,21 @@ public class IfTest {
                 float b;
             }
         """;
-        assertTrue(Util.check(input));
+        String output = """
+            push B true
+            fjmp ifFalse_0
+            push I 0
+            save a
+            jmp ifEnd_0
+            label ifFalse_0
+            push B false
+            fjmp ifFalse_1
+            push F 0.0
+            save b
+            label ifFalse_1
+            label ifEnd_0
+        """;
+        assertTrue(Util.compile(input, output));
     }
 
     @Test
@@ -53,7 +85,25 @@ public class IfTest {
                 string c;
             }
         """;
-        assertTrue(Util.check(input));
+        String output = """
+            push B true
+            fjmp ifFalse_0
+            push I 0
+            save a
+            jmp ifEnd_0
+            label ifFalse_0
+            push B false
+            fjmp ifFalse_1
+            push F 0.0
+            save b
+            jmp ifEnd_1
+            label ifFalse_1
+            push S ""
+            save c
+            label ifEnd_1
+            label ifEnd_0
+        """;
+        assertTrue(Util.compile(input, output));
     }
 
     @Test
@@ -64,7 +114,18 @@ public class IfTest {
                 int b;
             }
         """;
-        assertTrue(Util.check(input));
+        String output = """
+            push I 0
+            save a
+            load a
+            push I 5
+            eq
+            fjmp ifFalse_0
+            push I 0
+            save b
+            label ifFalse_0
+        """;
+        assertTrue(Util.compile(input, output));
     }
 
     @Test
@@ -112,6 +173,41 @@ public class IfTest {
                 string c;
             }
         """;
-        assertTrue(Util.check(input));
+        String output = """
+            push I 0
+            save x
+            push I 5
+            save x
+            pop
+            load x
+            push I 0
+            gt
+            load x
+            push I 10
+            lt
+            and
+            fjmp ifFalse_0
+            push I 0
+            save a
+            jmp ifEnd_0
+            label ifFalse_0
+            load x
+            push I 10
+            gt
+            load x
+            push I 20
+            lt
+            and
+            fjmp ifFalse_1
+            push F 0.0
+            save b
+            jmp ifEnd_1
+            label ifFalse_1
+            push S ""
+            save c
+            label ifEnd_1
+            label ifEnd_0
+        """;
+        assertTrue(Util.compile(input, output));
     }
 }

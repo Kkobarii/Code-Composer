@@ -13,7 +13,13 @@ public class ComparisonTest {
         String input = """
             2 == 2;
         """;
-        assertTrue(Util.check(input));
+        String output = """
+            push I 2
+            push I 2
+            eq
+            pop
+        """;
+        assertTrue(Util.compile(input, output));
     }
 
     @Test
@@ -21,7 +27,14 @@ public class ComparisonTest {
         String input = """
             2 != 2;
         """;
-        assertTrue(Util.check(input));
+        String output = """
+            push I 2
+            push I 2
+            eq
+            not
+            pop
+        """;
+        assertTrue(Util.compile(input, output));
     }
 
     @Test
@@ -31,7 +44,17 @@ public class ComparisonTest {
             int b;
             a == b;
         """;
-        assertTrue(Util.check(input));
+        String output = """
+            push I 0
+            save a
+            push I 0
+            save b
+            load a
+            load b
+            eq
+            pop
+        """;
+        assertTrue(Util.compile(input, output));
     }
 
     @Test
@@ -41,7 +64,17 @@ public class ComparisonTest {
             float b;
             a == b;
         """;
-        assertTrue(Util.check(input));
+        String output = """
+            push F 0.0
+            save a
+            push F 0.0
+            save b
+            load a
+            load b
+            eq
+            pop
+        """;
+        assertTrue(Util.compile(input, output));
     }
 
     @Test
@@ -51,7 +84,17 @@ public class ComparisonTest {
             string b;
             a == b;
         """;
-        assertTrue(Util.check(input));
+        String output = """
+            push S ""
+            save a
+            push S ""
+            save b
+            load a
+            load b
+            eq
+            pop
+        """;
+        assertTrue(Util.compile(input, output));
     }
 
     @Test

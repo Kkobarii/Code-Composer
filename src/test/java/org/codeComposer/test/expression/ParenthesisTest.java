@@ -12,7 +12,11 @@ public class ParenthesisTest {
         String input = """
             (true);
         """;
-        assertTrue(Util.check(input));
+        String output = """
+            push B true
+            pop
+        """;
+        assertTrue(Util.compile(input, output));
     }
 
     @Test
@@ -21,7 +25,13 @@ public class ParenthesisTest {
             int a;
             (a);
         """;
-        assertTrue(Util.check(input));
+        String output = """
+            push I 0
+            save a
+            load a
+            pop
+        """;
+        assertTrue(Util.compile(input, output));
     }
 
     @Test
@@ -30,7 +40,13 @@ public class ParenthesisTest {
             float a;
             (a);
         """;
-        assertTrue(Util.check(input));
+        String output = """
+            push F 0.0
+            save a
+            load a
+            pop
+        """;
+        assertTrue(Util.compile(input, output));
     }
 
     @Test
@@ -39,7 +55,13 @@ public class ParenthesisTest {
             string a;
             (a);
         """;
-        assertTrue(Util.check(input));
+        String output = """
+            push S ""
+            save a
+            load a
+            pop
+        """;
+        assertTrue(Util.compile(input, output));
     }
 
     @Test
@@ -48,7 +70,13 @@ public class ParenthesisTest {
             bool a;
             (a);
         """;
-        assertTrue(Util.check(input));
+        String output = """
+            push B false
+            save a
+            load a
+            pop
+        """;
+        assertTrue(Util.compile(input, output));
     }
 
     @Test
@@ -56,6 +84,12 @@ public class ParenthesisTest {
         String input = """
             (true && false);
         """;
-        assertTrue(Util.check(input));
+        String output = """
+            push B true
+            push B false
+            and
+            pop
+        """;
+        assertTrue(Util.compile(input, output));
     }
 }

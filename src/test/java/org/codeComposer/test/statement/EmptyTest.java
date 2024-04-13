@@ -21,7 +21,9 @@ public class EmptyTest {
         String input = """
            ;
         """;
-        assertTrue(Util.check(input));
+        String output = """
+        """;
+        assertTrue(Util.compile(input, output));
     }
 
     @Test
@@ -29,6 +31,8 @@ public class EmptyTest {
         String input = """
             ;;
         """;
-        assertTrue(Util.check(input));
+        String output = """
+        """;
+        assertTrue(Util.compile(input, output));
     }
 }

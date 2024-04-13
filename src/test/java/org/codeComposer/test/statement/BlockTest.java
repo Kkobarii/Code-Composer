@@ -13,7 +13,8 @@ public class BlockTest {
             {
             }
         """;
-        assertTrue(Util.check(input));
+        String output = "";
+        assertTrue(Util.compile(input, output));
     }
 
     @Test
@@ -23,7 +24,11 @@ public class BlockTest {
                 int a;
             }
         """;
-        assertTrue(Util.check(input));
+        String output = """
+            push I 0
+            save a
+        """;
+        assertTrue(Util.compile(input, output));
     }
 
     @Test
@@ -36,6 +41,16 @@ public class BlockTest {
                 bool d;
             }
         """;
-        assertTrue(Util.check(input));
+        String output = """
+            push I 0
+            save a
+            push F 0.0
+            save b
+            push S ""
+            save c
+            push B false
+            save d
+        """;
+        assertTrue(Util.compile(input, output));
     }
 }

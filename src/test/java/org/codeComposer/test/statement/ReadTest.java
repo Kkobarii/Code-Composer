@@ -14,7 +14,13 @@ public class ReadTest {
             int a;
             read a;
         """;
-        assertTrue(Util.check(input));
+        String output = """
+            push I 0
+            save a
+            read I
+            save a
+        """;
+        assertTrue(Util.compile(input, output));
     }
 
     @Test
@@ -23,7 +29,13 @@ public class ReadTest {
             float a;
             read a;
         """;
-        assertTrue(Util.check(input));
+        String output = """
+            push F 0.0
+            save a
+            read F
+            save a
+        """;
+        assertTrue(Util.compile(input, output));
     }
 
     @Test
@@ -32,7 +44,13 @@ public class ReadTest {
             string a;
             read a;
         """;
-        assertTrue(Util.check(input));
+        String output = """
+            push S ""
+            save a
+            read S
+            save a
+        """;
+        assertTrue(Util.compile(input, output));
     }
 
     @Test
@@ -41,7 +59,13 @@ public class ReadTest {
             bool a;
             read a;
         """;
-        assertTrue(Util.check(input));
+        String output = """
+            push B false
+            save a
+            read B
+            save a
+        """;
+        assertTrue(Util.compile(input, output));
     }
 
     @Test
@@ -53,7 +77,25 @@ public class ReadTest {
             bool d;
             read a, b, c, d;
         """;
-        assertTrue(Util.check(input));
+        String output = """
+            push I 0
+            save a
+            push F 0.0
+            save b
+            push S ""
+            save c
+            push B false
+            save d
+            read I
+            save a
+            read F
+            save b
+            read S
+            save c
+            read B
+            save d
+        """;
+        assertTrue(Util.compile(input, output));
     }
 
     @Test

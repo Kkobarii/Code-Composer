@@ -13,7 +13,13 @@ public class ModuloTest {
         String input = """
             3 % 2;
         """;
-        assertTrue(Util.check(input));
+        String output = """
+            push I 3
+            push I 2
+            mod
+            pop
+        """;
+        assertTrue(Util.compile(input, output));
     }
 
     @Test
@@ -23,7 +29,17 @@ public class ModuloTest {
             int b;
             a % b;
         """;
-        assertTrue(Util.check(input));
+        String output = """
+            push I 0
+            save a
+            push I 0
+            save b
+            load a
+            load b
+            mod
+            pop
+        """;
+        assertTrue(Util.compile(input, output));
     }
 
     @Test

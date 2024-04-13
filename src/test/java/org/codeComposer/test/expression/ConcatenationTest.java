@@ -13,7 +13,13 @@ public class ConcatenationTest {
         String input = """
             "string" . "string";
         """;
-        assertTrue(Util.check(input));
+        String output = """
+            push S "string"
+            push S "string"
+            concat
+            pop
+        """;
+        assertTrue(Util.compile(input, output));
     }
 
     @Test
@@ -43,8 +49,20 @@ public class ConcatenationTest {
     @Test
     public void testConcatenationString() {
         String input = """
-            "string" . "string";
+            string a;
+            string b;
+            a . b;
         """;
-        assertTrue(Util.check(input));
+        String output = """
+            push S ""
+            save a
+            push S ""
+            save b
+            load a
+            load b
+            concat
+            pop
+        """;
+        assertTrue(Util.compile(input, output));
     }
 }

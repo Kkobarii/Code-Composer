@@ -13,7 +13,13 @@ public class LogicAndOrTest {
         String input = """
             true && false;
         """;
-        assertTrue(Util.check(input));
+        String output = """
+            push B true
+            push B false
+            and
+            pop
+        """;
+        assertTrue(Util.compile(input, output));
     }
 
     @Test
@@ -21,7 +27,13 @@ public class LogicAndOrTest {
         String input = """
             true || false;
         """;
-        assertTrue(Util.check(input));
+        String output = """
+            push B true
+            push B false
+            or
+            pop
+        """;
+        assertTrue(Util.compile(input, output));
     }
 
     @Test
@@ -61,6 +73,16 @@ public class LogicAndOrTest {
             bool b;
             a && b;
         """;
-        assertTrue(Util.check(input));
+        String output = """
+            push B false
+            save a
+            push B false
+            save b
+            load a
+            load b
+            and
+            pop
+        """;
+        assertTrue(Util.compile(input, output));
     }
 }
