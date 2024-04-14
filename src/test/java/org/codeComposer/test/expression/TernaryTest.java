@@ -27,9 +27,11 @@ public class TernaryTest {
             save c
             push I 1
             save a
+            load a
             pop
             push I 2
             save b
+            load b
             pop
             load a
             load b
@@ -41,6 +43,7 @@ public class TernaryTest {
             load b
             label ternaryEnd_0
             save c
+            load c
             pop
         """;
         assertTrue(Util.compile(input, output));
@@ -65,9 +68,11 @@ public class TernaryTest {
             save c
             push I 1
             save a
+            load a
             pop
             push I 2
             save b
+            load b
             pop
             load a
             load b
@@ -79,6 +84,7 @@ public class TernaryTest {
             load b
             label ternaryEnd_0
             save c
+            load c
             pop
         """;
         assertTrue(Util.compile(input, output));
@@ -103,9 +109,11 @@ public class TernaryTest {
             save c
             push I 1
             save a
+            load a
             pop
             push F 2.0
             save b
+            load b
             pop
             load a
             itof
@@ -119,6 +127,7 @@ public class TernaryTest {
             load b
             label ternaryEnd_0
             save c
+            load c
             pop
         """;
         assertTrue(Util.compile(input, output));

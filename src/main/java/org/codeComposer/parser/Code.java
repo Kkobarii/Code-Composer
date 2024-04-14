@@ -4,14 +4,13 @@ import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 import org.antlr.v4.runtime.CharStreams;
 import org.antlr.v4.runtime.CommonTokenStream;
-import org.antlr.v4.runtime.tree.ParseTreeWalker;
 import org.codeComposer.gen.CodeLexer;
 import org.codeComposer.gen.CodeParser;
 import org.codeComposer.parser.compiler.CodeCompiler;
 import org.codeComposer.parser.compiler.instruction.Instruction;
 import org.codeComposer.parser.error.ErrorListener;
 import org.codeComposer.parser.error.ErrorHandler;
-import org.codeComposer.parser.processor.CodeProcessor;
+import org.codeComposer.parser.interpreter.CodeInterpreter;
 import org.codeComposer.parser.typeChecker.CodeTypeChecker;
 
 import java.util.ArrayList;
@@ -34,6 +33,7 @@ public class Code {
     }
 
     public boolean parse(String input) {
+        log.debug("Parsing...");
         CodeLexer lexer = new CodeLexer(CharStreams.fromString(input));
         CommonTokenStream tokens = new CommonTokenStream(lexer);
 
@@ -53,6 +53,7 @@ public class Code {
     }
 
     public boolean check() {
+        log.debug("Checking...");
         CodeTypeChecker visitor = new CodeTypeChecker();
         visitor.visit(context);
 
@@ -67,6 +68,7 @@ public class Code {
     }
 
     public boolean compile() {
+        log.debug("Compiling...");
         CodeCompiler compiler = new CodeCompiler();
         instructions = compiler.visit(context);
 
@@ -84,18 +86,20 @@ public class Code {
         return true;
     }
 
-    public boolean process() {
-        return process(new Scanner(System.in));
+    public boolean interpret() {
+        return interpret(new Scanner(System.in));
     }
 
-    public boolean process(Scanner scanner) {
-        CodeProcessor processor = new CodeProcessor(scanner);
-        processor.process(instructions);
+    public boolean interpret(Scanner scanner) {
+        log.debug("Interpreting...");
+        CodeInterpreter interpreter = new CodeInterpreter(scanner);
 
         try {
-            output = processor.getOutput();
+            interpreter.interpret(instructions);
+            output = interpreter.getOutput();
         } catch (Exception e) {
-            log.error("Processing failed!");
+            log.error(e.getMessage());
+            log.error("Interpreting failed!");
             return false;
         }
 
@@ -103,7 +107,7 @@ public class Code {
             log.trace("\t\t{}", line);
         }
 
-        log.info("Processing successful!");
+        log.info("Interpreting successful!");
 
         return true;
     }

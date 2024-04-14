@@ -38,18 +38,18 @@ public class Util {
         return result;
     }
 
-    public static boolean process(String input, String output) {
+    public static boolean interpret(String input, String output) {
         printInput(input);
         Code code = new Code();
-        boolean result = code.parse(input) && code.check() && code.compile() && code.process();
+        boolean result = code.parse(input) && code.check() && code.compile() && code.interpret();
         assertEquals(output.replace("    ", "").trim(), code.getOutputString().trim());
         return result;
     }
 
-    public static boolean process(String input, String output, Scanner scanner) {
+    public static boolean interpret(String input, String output, Scanner scanner) {
         printInput(input);
         Code code = new Code();
-        boolean result = code.parse(input) && code.check() && code.compile() && code.process(scanner);
+        boolean result = code.parse(input) && code.check() && code.compile() && code.interpret(scanner);
         assertEquals(output.replace("    ", "").trim(), code.getOutputString().trim());
         return result;
     }

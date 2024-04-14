@@ -47,6 +47,7 @@ public class WhileTest {
             push I 1
             add
             save a
+            load a
             pop
             jmp whileStart_0
             label whileEnd_0

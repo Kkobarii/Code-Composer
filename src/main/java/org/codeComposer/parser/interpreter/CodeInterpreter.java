@@ -1,4 +1,4 @@
-package org.codeComposer.parser.processor;
+package org.codeComposer.parser.interpreter;
 
 import lombok.Getter;
 import org.codeComposer.parser.compiler.instruction.Instruction;
@@ -16,7 +16,7 @@ import org.codeComposer.parser.typeChecker.Type;
 
 import java.util.*;
 
-public class CodeProcessor {
+public class CodeInterpreter {
 
     private final Stack<Object> stack = new Stack<>();
     private final HashMap<String, Object> variableTable = new HashMap<>();
@@ -31,11 +31,11 @@ public class CodeProcessor {
     private int instructionPointer = 0;
     private boolean hasError = false;
 
-    public CodeProcessor(Scanner scanner) {
+    public CodeInterpreter(Scanner scanner) {
         this.scanner = scanner;
     }
 
-    public void process(List<Instruction> instructions) {
+    public void interpret(List<Instruction> instructions) {
         instructionPointer = 0;
 
         for (int i = 0; i < instructions.size(); i++) {
@@ -50,6 +50,11 @@ public class CodeProcessor {
             Instruction instruction = instructions.get(instructionPointer);
             processInstruction(instruction);
             instructionPointer++;
+        }
+
+        // check if stack is empty
+        if (!stack.isEmpty()) {
+            throw new IllegalStateException("Stack is not empty: " + stack);
         }
     }
 
@@ -66,14 +71,17 @@ public class CodeProcessor {
             case Equal equal -> processEqual(equal);
             case Not not -> processNot(not);
             case IntToFloat intToFloat -> processIntToFloat(intToFloat);
+
             // memory
             case Push push -> stack.push(push.value());
             case Pop pop -> stack.pop();
             case Save save -> processSave(save);
             case Load load -> processLoad(load);
+
             // io
             case Print print -> processPrint(print);
             case Read read -> processRead(read);
+
             // jumper
             case Jump jump -> processJump(jump);
             case FalseJump falseJump -> processFalseJump(falseJump);
@@ -219,7 +227,7 @@ public class CodeProcessor {
     }
 
     private void processSave(Save save) {
-        variableTable.put(save.id(), stack.peek());
+        variableTable.put(save.id(), stack.pop());
     }
 
     private void processLoad(Load load) {
@@ -227,11 +235,12 @@ public class CodeProcessor {
     }
 
     private void processPrint(Print print) {
-        String str = "";
+        List<String> values = new ArrayList<>();
         for (int i = 0; i < print.n(); i++) {
-            str += stack.pop() + " ";
+            values.add(stack.pop().toString());
         }
-        output.add(str.trim());
+
+        output.add(String.join(" ", values.reversed()).trim());
     }
 
     public void processRead(Read read) {
@@ -247,8 +256,6 @@ public class CodeProcessor {
                 hasError = true;
             }
         }
-
-        stack.push(input);
     }
 
     public void processJump(Jump jump) {

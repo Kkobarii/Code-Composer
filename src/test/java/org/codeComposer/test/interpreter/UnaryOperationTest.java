@@ -1,4 +1,4 @@
-package org.codeComposer.test.processing;
+package org.codeComposer.test.interpreter;
 
 import org.codeComposer.Util;
 import org.junit.jupiter.api.Test;
@@ -13,7 +13,7 @@ public class UnaryOperationTest {
             write -1;
         """;
         String output = "-1";
-        assertTrue(Util.process(input, output));
+        assertTrue(Util.interpret(input, output));
     }
 
     @Test
@@ -24,7 +24,7 @@ public class UnaryOperationTest {
             write -a;
         """;
         String output = "-2";
-        assertTrue(Util.process(input, output));
+        assertTrue(Util.interpret(input, output));
     }
 
     @Test
@@ -35,7 +35,7 @@ public class UnaryOperationTest {
             write -a;
         """;
         String output = "-2.0";
-        assertTrue(Util.process(input, output));
+        assertTrue(Util.interpret(input, output));
     }
 
     @Test
@@ -46,7 +46,7 @@ public class UnaryOperationTest {
             write -a;
         """;
         String output = "1";
-        assertTrue(Util.process(input, output));
+        assertTrue(Util.interpret(input, output));
     }
 
     @Test
@@ -55,7 +55,7 @@ public class UnaryOperationTest {
             write !true;
         """;
         String output = "false";
-        assertTrue(Util.process(input, output));
+        assertTrue(Util.interpret(input, output));
     }
 
     @Test
@@ -64,6 +64,6 @@ public class UnaryOperationTest {
             write !!true;
         """;
         String output = "true";
-        assertTrue(Util.process(input, output));
+        assertTrue(Util.interpret(input, output));
     }
 }

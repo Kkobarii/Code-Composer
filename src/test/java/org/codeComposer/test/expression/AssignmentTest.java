@@ -19,6 +19,7 @@ public class AssignmentTest {
             save a
             push I 5
             save a
+            load a
             pop
         """;
         assertTrue(Util.compile(input, output));
@@ -35,6 +36,7 @@ public class AssignmentTest {
             save a
             push F 5.0
             save a
+            load a
             pop
         """;
         assertTrue(Util.compile(input, output));
@@ -51,6 +53,7 @@ public class AssignmentTest {
             save a
             push S "hello"
             save a
+            load a
             pop
         """;
         assertTrue(Util.compile(input, output));
@@ -67,6 +70,7 @@ public class AssignmentTest {
             save a
             push B true
             save a
+            load a
             pop
         """;
         assertTrue(Util.compile(input, output));
@@ -87,6 +91,7 @@ public class AssignmentTest {
             load b
             itof
             save a
+            load a
             pop
         """;
         assertTrue(Util.compile(input, output));

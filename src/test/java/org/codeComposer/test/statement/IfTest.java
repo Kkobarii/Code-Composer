@@ -178,6 +178,7 @@ public class IfTest {
             save x
             push I 5
             save x
+            load x
             pop
             load x
             push I 0

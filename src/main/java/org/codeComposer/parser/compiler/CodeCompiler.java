@@ -177,7 +177,7 @@ public class CodeCompiler extends CodeBaseVisitor<List<Instruction>> {
             instructions.add(new IntToFloat());
 
         instructions.add(new Save(ctx.variable().ID().getText()));
-//        instructions.add(new Load(ctx.variable().ID().getText())); // todo
+        instructions.add(new Load(ctx.variable().ID().getText()));
 
         return instructions;
     }

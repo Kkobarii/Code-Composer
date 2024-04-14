@@ -1,4 +1,4 @@
-package org.codeComposer.test.processing;
+package org.codeComposer.test.interpreter;
 
 import org.codeComposer.Util;
 import org.junit.jupiter.api.Test;
@@ -13,7 +13,7 @@ public class BinaryOperationTest {
             write 1 + 2;
         """;
         String output = "3";
-        assertTrue(Util.process(input, output));
+        assertTrue(Util.interpret(input, output));
     }
 
     @Test
@@ -22,7 +22,7 @@ public class BinaryOperationTest {
             write 1 - 2;
         """;
         String output = "-1";
-        assertTrue(Util.process(input, output));
+        assertTrue(Util.interpret(input, output));
     }
 
     @Test
@@ -31,7 +31,7 @@ public class BinaryOperationTest {
             write 2 * 3;
         """;
         String output = "6";
-        assertTrue(Util.process(input, output));
+        assertTrue(Util.interpret(input, output));
     }
 
     @Test
@@ -40,7 +40,7 @@ public class BinaryOperationTest {
             write 6 / 2;
         """;
         String output = "3";
-        assertTrue(Util.process(input, output));
+        assertTrue(Util.interpret(input, output));
     }
 
     @Test
@@ -49,7 +49,7 @@ public class BinaryOperationTest {
             write 6.0 / 4;
         """;
         String output = "1.5";
-        assertTrue(Util.process(input, output));
+        assertTrue(Util.interpret(input, output));
     }
 
     @Test
@@ -58,7 +58,7 @@ public class BinaryOperationTest {
             write 2 * 3 + 4;
         """;
         String output = "10";
-        assertTrue(Util.process(input, output));
+        assertTrue(Util.interpret(input, output));
     }
 
     @Test
@@ -67,7 +67,7 @@ public class BinaryOperationTest {
             write 3 % 2;
         """;
         String output = "1";
-        assertTrue(Util.process(input, output));
+        assertTrue(Util.interpret(input, output));
     }
 
     @Test
@@ -76,7 +76,7 @@ public class BinaryOperationTest {
             write "hello" . "world";
         """;
         String output = "helloworld";
-        assertTrue(Util.process(input, output));
+        assertTrue(Util.interpret(input, output));
     }
 
     @Test
@@ -85,7 +85,7 @@ public class BinaryOperationTest {
             write true && false;
         """;
         String output = "false";
-        assertTrue(Util.process(input, output));
+        assertTrue(Util.interpret(input, output));
     }
 
     @Test
@@ -94,7 +94,7 @@ public class BinaryOperationTest {
             write true || false;
         """;
         String output = "true";
-        assertTrue(Util.process(input, output));
+        assertTrue(Util.interpret(input, output));
     }
 
     @Test
@@ -103,7 +103,7 @@ public class BinaryOperationTest {
             write 1 > 2;
         """;
         String output = "false";
-        assertTrue(Util.process(input, output));
+        assertTrue(Util.interpret(input, output));
     }
 
     @Test
@@ -112,7 +112,7 @@ public class BinaryOperationTest {
             write 1 >= 2;
         """;
         String output = "false";
-        assertTrue(Util.process(input, output));
+        assertTrue(Util.interpret(input, output));
     }
 
     @Test
@@ -121,7 +121,7 @@ public class BinaryOperationTest {
             write 1 < 2;
         """;
         String output = "true";
-        assertTrue(Util.process(input, output));
+        assertTrue(Util.interpret(input, output));
     }
 
     @Test
@@ -130,7 +130,7 @@ public class BinaryOperationTest {
             write 1 <= 2;
         """;
         String output = "true";
-        assertTrue(Util.process(input, output));
+        assertTrue(Util.interpret(input, output));
     }
 
     @Test
@@ -139,7 +139,7 @@ public class BinaryOperationTest {
             write 1 == 2;
         """;
         String output = "false";
-        assertTrue(Util.process(input, output));
+        assertTrue(Util.interpret(input, output));
     }
 
     @Test
@@ -148,7 +148,7 @@ public class BinaryOperationTest {
             write 1.0 == 1.0;
         """;
         String output = "true";
-        assertTrue(Util.process(input, output));
+        assertTrue(Util.interpret(input, output));
     }
 
     @Test
@@ -157,7 +157,7 @@ public class BinaryOperationTest {
             write "hello" == "hello";
         """;
         String output = "true";
-        assertTrue(Util.process(input, output));
+        assertTrue(Util.interpret(input, output));
     }
 
     @Test
@@ -166,6 +166,6 @@ public class BinaryOperationTest {
             write 1 != 2;
         """;
         String output = "true";
-        assertTrue(Util.process(input, output));
+        assertTrue(Util.interpret(input, output));
     }
 }
