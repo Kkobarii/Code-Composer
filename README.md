@@ -124,7 +124,7 @@ The project is divided into several features:
 3. **Compilation** - The compilation is done in the [CodeCompiler](src/main/java/org/codeComposer/parser/compiler/CodeCompiler.java) class. It generates a list of stack-based instructions from the parsed and type checked tree that are then executed by the interpreter. The instructions are represented as classes with a common interface, maybe could be improved by eliminating redundancy, but it works for now.
 <img src=".readme_examples/compiler.png" alt="Compiler output"/>
 
-4. **Interpreter** - The interpreter, implemented in the [CodeInterpreter](src/main/java/org/codeComposer/interpreter/CodeInterpreter.java) class, reads the generated instructions and executes them using a stack and two hash maps for variables and labels. The interpreter is able to read and write values from a stream provided to it and into and output list of strings.
+4. **Interpreter** - The interpreter, implemented in the [CodeInterpreter](src/main/java/org/codeComposer/parser/interpreter/CodeInterpreter.java) class, reads the generated instructions and executes them using a stack and two hash maps for variables and labels. The interpreter is able to read and write values from a stream provided to it and into and output list of strings.
 <img src=".readme_examples/interpreter.png" alt="Interpreter output"/>
 
 5. **Testing** - The project also includes tests written using JUnit 5. They cover the lexer, parser, type checker, compiler, and interpreter, are run using the Maven Surefire plugin and saved me a lot of headaches (but also introduced some new ones).
